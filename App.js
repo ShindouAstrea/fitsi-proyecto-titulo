@@ -1,33 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
 
-import { Text, View, StyleSheet, Image} from 'react-native';
+import * as React from 'react';
+import { View, Text,Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FormsScreen from './components/FormsScreen';
+import SettingsScreen from './components/SettingsScreen';
+import HomeScreen from './components/HomeScreen';
 
-export default function App() {
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    //View : Contenedor .
-    <View style={styles.containerHome}>
-      <Image
-      style={styles.logo}
-      source={require('./assets/Logotipo.png')}
-      /> 
-      <Text style={styles.title}>Hola Mundo !!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{title: '' }} />
+        <Stack.Screen name="Forms" component={FormsScreen} options={{title: 'Formulario' }}/>
+        <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Configuración' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-//Instancia que contiene todos los estilos.
-const styles =StyleSheet.create({
-  containerHome: {
-    flex:1,
-    backgroundColor:"#073c91",
-    justifyContent:"center",
-    alignContent:"center",
-    alignItems:"center"
-  },
-  title : {
-    fontSize:40
-  },
-  logo: {
-    width: 200,
-    height: 70
-  },
-})
+}
+export default App;
+
