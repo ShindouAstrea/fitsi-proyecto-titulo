@@ -5,8 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
  //JS que contienen las funciones o "screens" de las diversas pantallas.
 import FormsScreen from './components/FormsScreen';
+
 import SettingsScreen from './components/SettingsScreen';
-import HomeScreen from './components/HomeScreen';
+import HomeScreen from './components/Nav/HomeScreen';
 
 //Se instancian las "pantallas" que tendra la app
 const Stack = createNativeStackNavigator();
