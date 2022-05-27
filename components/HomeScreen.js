@@ -25,7 +25,6 @@ function HomeScreen({navigation}) {
   const styles =StyleSheet.create({
     containerHome: {
       flex:1,
-      backgroundColor:"#073c91",
       justifyContent:"center",
       alignContent:"center",
       alignItems:"center"
