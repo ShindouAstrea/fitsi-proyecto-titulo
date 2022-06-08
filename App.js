@@ -8,6 +8,7 @@ import FormsScreen from './components/FormsScreen';
 
 import SettingsScreen from './components/SettingsScreen';
 import HomeScreen from './components/Nav/HomeScreen';
+import Sensor from './components/Sensor';
 
 //Se instancian las "pantallas" que tendra la app
 const Stack = createNativeStackNavigator();
@@ -40,7 +41,7 @@ const App = () => {
           },
         }}
     >
-        <Stack.Screen name="Home" component={HomeScreen} 
+        <Stack.Screen name="Home" component={Sensor} 
         options={{headerShown: true}} />
         <Stack.Screen name="Forms" component={FormsScreen} options={{title: 'Formulario' }}/>
         <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Configuración' }}/>
