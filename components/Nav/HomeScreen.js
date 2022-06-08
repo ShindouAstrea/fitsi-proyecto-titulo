@@ -35,19 +35,6 @@ function HomeScreen({navigation}) {
           ),
         }} />
     </Tab.Navigator>
-    // <View style={styles.containerHome}>
-      
-    //   <Button
-    //       title="Ir a  Forms"
-    //       onPress={() => navigation.navigate('Forms')}
-    //   />
-      
-    //   {/* Argumento de require es ruta de archivo . Se debe corregir ruta.
-    //    <Image
-    //     style={styles.container}
-    //     source ={require('Logotipo')}
-    //   /> */}
-    // </View>
     );
   };
   export default HomeScreen;
