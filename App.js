@@ -4,11 +4,18 @@ import { View, Text,Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
  //JS que contienen las funciones o "screens" de las diversas pantallas.
-import FormsScreen from './components/FormsScreen';
+ import SignupScreen from './components/SignupScreen';
+import BottomNav from './components/Nav/BottomNav';
+//JS que contienen las vistas de prueba de sensores
+import Accelerometer from './components/Sensors/Accelerometer';
+import Gyroscope from './components/Sensors/Gyroscope';
+//JS  que contienen las vistas relacionadas al plan de ejercicio
+import AccountScreen from './components/AccountScreen';
+import ExampleScreen from './components/ExampleScreen';
+import PlanningScreen from './components/PlanningScreen';
 
-import SettingsScreen from './components/SettingsScreen';
-import HomeScreen from './components/Nav/HomeScreen';
-import Sensor from './components/Sensor';
+
+
 
 //Se instancian las "pantallas" que tendra la app
 const Stack = createNativeStackNavigator();
@@ -27,7 +34,7 @@ const App = () => {
     */
     <NavigationContainer>  
       <Stack.Navigator 
-        initialRouteName="Home"
+        initialRouteName="Forms"
         screenOptions={{
           headerStyle: {
             backgroundColor: '#4cbdfd',
@@ -41,10 +48,16 @@ const App = () => {
           },
         }}
     >
-        <Stack.Screen name="Home" component={Sensor} 
+        <Stack.Screen name="Home" component={BottomNav} 
         options={{headerShown: true}} />
-        <Stack.Screen name="Forms" component={FormsScreen} options={{title: 'Formulario' }}/>
-        <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Configuración' }}/>
+        <Stack.Screen name="Gyroscope" component={Gyroscope} 
+        options={{headerShown: true , title: "Giroscopio pruebas"}} />
+        <Stack.Screen name="Accelerometer" component={Accelerometer}  
+        options={{headerShown: true,title: 'Acelerometro pruebas'}} />
+        <Stack.Screen name="Forms" component={SignupScreen} options={{title: 'Inciar Sesión' }}/>
+        <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
+        <Stack.Screen name="Example" component={ExampleScreen} options={{title: 'Como realizarlo' }}/>
+        <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Plan de ejercicio' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

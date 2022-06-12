@@ -3,41 +3,34 @@ import { View, StyleSheet,Button,Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MessagesSreen from '../MessagesScreen';
-import FormsScreen from '../FormsScreen';
-import SettingsScreen from '../SettingsScreen';
+import ExampleScreen from '../ExampleScreen';
+import PlanningScreen from '../PlanningScreen';
+import AccountScreen from '../AccountScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
-function HomeScreen({navigation}) {
+function BottomNav({navigation}) {
     return (
     <Tab.Navigator>
       
-      <Tab.Screen name="Perfil" component={MessagesSreen} 
+      <Tab.Screen name="Account" component={AccountScreen} 
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Rutinas" component={SettingsScreen} 
+      <Tab.Screen name="Planning" component={PlanningScreen} 
       options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Plan de ejercicio',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="dumbbell" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Formularios" component={FormsScreen}
-      options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="file" color={color} size={26} />
-          ),
-        }} />
     </Tab.Navigator>
     );
   };
-  export default HomeScreen;
+  export default BottomNav;
 
   const styles =StyleSheet.create({
     containerHome: {
