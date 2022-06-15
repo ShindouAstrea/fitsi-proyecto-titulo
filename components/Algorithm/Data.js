@@ -1,0 +1,5 @@
+const Data = () =>{
+    {
+        "name"="aaa"
+    }
+}
