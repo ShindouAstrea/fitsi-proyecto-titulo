@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, StyleSheet, TextInput,View , Button} from "react-native";
 
 
-const SignupScreen = ({navigation}) => {
+const Ejemplo = ({navigation}) => {
   const [text, onChangeText] = React.useState("Ingrese Nombre");
   const [Apellido, onChangeApellido] = React.useState("Ingrese Apellido");
 
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+export default Ejemplo;
