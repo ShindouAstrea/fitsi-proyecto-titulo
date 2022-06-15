@@ -14,6 +14,8 @@ import AccountScreen from './components/AccountScreen';
 import ExampleScreen from './components/ExampleScreen';
 import PlanningScreen from './components/PlanningScreen';
 
+import Ejemplo from './components/Ejemplo';
+
 
 
 
@@ -54,7 +56,7 @@ const App = () => {
         options={{headerShown: true , title: "Giroscopio pruebas"}} />
         <Stack.Screen name="Accelerometer" component={Accelerometer}  
         options={{headerShown: true,title: 'Acelerometro pruebas'}} />
-        <Stack.Screen name="Forms" component={SignupScreen} options={{title: 'Inciar Sesión' }}/>
+        <Stack.Screen name="Forms" component={SignupScreen} options={{title: 'Registro' }}/>
         <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
         <Stack.Screen name="Example" component={ExampleScreen} options={{title: 'Como realizarlo' }}/>
         <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Plan de ejercicio' }}/>
