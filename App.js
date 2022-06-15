@@ -13,8 +13,7 @@ import Gyroscope from './components/Sensors/Gyroscope';
 import AccountScreen from './components/AccountScreen';
 import ExampleScreen from './components/ExampleScreen';
 import PlanningScreen from './components/PlanningScreen';
-
-import Ejemplo from './components/Ejemplo';
+//import Ejemplo from './components/Ejemplo';
 
 
 
