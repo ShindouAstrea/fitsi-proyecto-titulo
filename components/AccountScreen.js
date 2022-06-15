@@ -8,15 +8,17 @@ function AccountScreen({navigation}) {
     return (
       <View style={styles.container}>
         <Text>En esta pantalla van los forms </Text>
-        <Button
+        <Button 
+            style={styles.button}
             title="Modificar datos"
         />
         
         <Separator/>
 
          <Button
+            style={styles.button}
             title="Crear plan "
-            onPress={() => navigation.navigate('Planning')}
+            onPress={() => navigation.navigate('Details')}
         />
       </View>
     );
@@ -30,6 +32,9 @@ const styles = StyleSheet.create({
     justifyItems: 'center',
     alignContent: 'center',
     marginVertical: 0,
+  },
+  button:{
+    borderRadius:10 
   },
   title: {
     textAlign: 'center',
