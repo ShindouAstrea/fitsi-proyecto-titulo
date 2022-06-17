@@ -7,7 +7,9 @@ const Separator = () => <View style={styles.separator} />;
 function AccountScreen({navigation}) {
     return (
       <View style={styles.container}>
-        <Text>En esta pantalla van los forms </Text>
+
+        <Text>En esta pantalla va la data capturada de registro </Text>
+        <Separator/>
         <Button 
             style={styles.button}
             title="Modificar datos"
@@ -17,8 +19,8 @@ function AccountScreen({navigation}) {
 
          <Button
             style={styles.button}
-            title="Crear plan "
-            onPress={() => navigation.navigate('Details')}
+            title=" Empezar a probar mi condicion fisica "
+            onPress={() => navigation.navigate('Algorithm')}
         />
       </View>
     );
