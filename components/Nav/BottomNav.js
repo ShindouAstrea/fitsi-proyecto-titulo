@@ -8,8 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 function BottomNav({navigation}) {
     return (
-    <Tab.Navigator>
-      
+    <Tab.Navigator>   
       <Tab.Screen name="Account" component={AccountScreen} 
         options={{
           tabBarLabel: 'Perfil',

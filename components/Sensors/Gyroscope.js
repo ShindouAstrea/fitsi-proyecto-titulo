@@ -4,9 +4,9 @@ import { Gyroscope } from 'expo-sensors';
 
 export default function App() {
   const [data, setData] = useState({
-    x: 0,
-    y: 0,
-    z: 0,
+    giroX: 0,
+    giroY: 0,
+    giroZ: 0,
   });
   const [subscription, setSubscription] = useState(null);
 
@@ -36,12 +36,12 @@ export default function App() {
     return () => _unsubscribe();
   }, []);
 
-  const { x, y, z } = data;
+  const { giroX, giroY, giroZ } = data;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Gyroscope:</Text>
       <Text style={styles.text}>
-        x: {round(x)} y: {round(y)} z: {round(z)}
+        x: {round(giroX)} y: {round(giroY)} z: {round(giroZ)}
       </Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} style={styles.button}>

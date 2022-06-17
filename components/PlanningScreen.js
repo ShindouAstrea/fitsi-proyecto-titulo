@@ -3,41 +3,47 @@ import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Plans from '../components/Algorithm/ExercisesPlans';
-import FlatButton from './Nav/Buttom';
 
-/** Item es el objeto con el Formato o estilo del objeto que sera listado ,en este caso son los planes.
- * Los valores {title} , {description} son variables son pasadas a este objeto.
- * Las variables que se mandan o que recibe este objeto , son originadas de un arreglo de variables llamado Plans
- * En la linea 31 se instancia el objeto a renderizar(crear item) pasandole las cadenas que estan asignadas a las variables de item (revisar Data para comprobar los nombres)
- * FlatList enlista objetos que son renderizados renderItem y que para renderizarlos debe tener en data , el arreglo de donde extraer la informacion.
- * En el argumento renderItem de FlatList , se especifica donde se instancias los objetos a listar , en este caso en una con el mismo nombre (que esta en la linea 33).
- * keyExtractor es el argumento que sirve para saber como extraer los valores del arreglo , siempre deberia ser un id.
- * */ 
-const DetailButton = ({navigation}) =>
-    <FlatButton
-      text = "Detalles del ejercicio "
-      onPress = {() => navigation.navigate('Exercise')}
-    />
-    
 
-const Item = ({ title,description}) => (
+
+    /**
+     * Funcion para crear un item u objeto para mostrarse en forma de View
+     * @param {string} title- Valor del que tiene "title" en el array entregado a FlatList.
+     * @param {string} description - Valor que tiene "description" en el array entregado a FlatList.
+     * @returns  {View} [Objeto en una vista , similar a un card]
+     */
+
+const Item = ({ title,description,navigation}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.description}>{description}</Text>
-    
-    <DetailButton/>
-  
+    <Button 
+          style={styleScreen.button}
+          title = "Detalles del ejercicio "
+          onPress = {() => navigation.push('Details')}
+      />
   </View>
-  );
-
+);
 
  //Separator es una variable o vista personalizada para realizar un espaciado cada vez que se le invoca en las vistas o renderizado de la Screen.
 const Separator = () => < View style = { styleScreen.separator }
 />;
+/**
+ * Funcion que renderiza la vista de listado de planes, lo hace gracias a FlatList principalmente , que recibe como
+ * parametro en data un array con todos los objetos , en renderItem la funcion que renderiza el listado y en keyExtractor el id de cada objeto del array.
+ * @param {navigation} navigation - variable que permite realizar el cambio de vista. 
+ * @returns {View} Vista del listado de los planes de ejercicio.
+ */
 function PlanningScreen({ navigation }) {
+  /**
+   * 
+   * @param {item} Objeto - Objeto que se desea renderizar muchas veces en una lista 
+   * @returns {View} Listado de items
+   */
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item,navigation }) => (
     <Item title={item.title} description={item.descripcion}/>
+      
   );
     return (
         <View style ={styles.container}>
@@ -45,8 +51,12 @@ function PlanningScreen({ navigation }) {
             data={Plans}
             renderItem={renderItem}
             keyExtractor={item => item.id}
+            extraData={navigation}
           />
-          
+          <Button style={styles.button}
+            title="Tomar pruebas"
+            onPress={() => navigation.navigate('Accelerometer')}
+            />
         </View>
     );
 };

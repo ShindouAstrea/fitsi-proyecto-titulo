@@ -1,11 +1,7 @@
   import * as React from 'react';
 import { View, Text,Button ,StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FlatButton from './Nav/Buttom';
-
 const Separator = () => <View style={styles.separator} />;
-
 function AccountScreen({navigation}) {
 /**
   const{Nombre,Apellido}= route.params;
@@ -16,20 +12,25 @@ function AccountScreen({navigation}) {
   
     //<Text>{NombreU},{ApellidoU}</Text> 
   return (
-      
-
       <View style={styles.container}>
         <FlatButton 
             text="Modificar datos"
             onPress={()=> navigation.navigate('Details')}
-        />
-        
 
+        <Text>En esta pantalla va la data capturada de registro </Text>
         <Separator/>
-
+        <Button 
+            style={styles.button}
+            title="Modificar datos"
+        />
+        <Separator/>
          <FlatButton
             text="Crear plan "
             onPress={() => navigation.navigate('Planning')}
+         <Button
+            style={styles.button}
+            title=" Empezar a probar mi condicion fisica "
+            onPress={() => navigation.navigate('Algorithm')}
         />
       </View>
     );
