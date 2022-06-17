@@ -16,6 +16,7 @@ import Gyroscope from './components/Sensors/Gyroscope';
 import AccountScreen from './components/AccountScreen';
 import DetailExerciseScreen from './components/DetailExerciseScreen';
 import PlanningScreen from './components/PlanningScreen';
+import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
 
 
@@ -44,6 +45,7 @@ const Stack = createNativeStackNavigator();
             headerStyle: {
               backgroundColor: '#4cbdfd',
             },
+            headerTintColor: '#4cbdfd',
             headerTitleStyle: {
               fontWeight: 'normal',
               backgroundColor: '#4cbdfd',
@@ -58,6 +60,7 @@ const Stack = createNativeStackNavigator();
           <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: 'Planes de Ejercicio' }}/>
           <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Plan de ejercicio' }}/>
           <Stack.Screen name="Algorithm" component={AlgorithmIA}/>
+           <Stack.Screen name="Ejemplo" component={Ejemplo}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

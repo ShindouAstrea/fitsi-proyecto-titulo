@@ -1,3 +1,6 @@
+
+import * as React from 'react';
+import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList } from 'react-native';
 import Data from './Algorithm/Data';

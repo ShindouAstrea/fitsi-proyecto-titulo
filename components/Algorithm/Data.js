@@ -1,3 +1,5 @@
+
+
 const Data =[
     {
         id:"01",
@@ -41,5 +43,13 @@ const Data =[
         Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
 
     },
+    {
+        id:"05",
+        Nombre:"Prueba video",
+        Repeticiones:10,
+        Tiempo:20,
+        Video:"https://www.youtube.com/watch?v=mZHSimF0TkY&ab_channel=RafaelCaldera",
+    },
 ];
 export default Data;
+

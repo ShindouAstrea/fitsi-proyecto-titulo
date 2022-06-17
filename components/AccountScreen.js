@@ -1,12 +1,21 @@
-import * as React from 'react';
+  import * as React from 'react';
 import { View, Text,Button ,StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import FlatButton from './Nav/Buttom';
 const Separator = () => <View style={styles.separator} />;
 function AccountScreen({navigation}) {
-    return (
+/**
+  const{Nombre,Apellido}= route.params;
+  const NombreU = JSON.stringify(Nombre);
+  const ApellidoU = JSON.stringify(Apellido);
+ */
+  
+  
+    //<Text>{NombreU},{ApellidoU}</Text> 
+  return (
       <View style={styles.container}>
+        <FlatButton 
+            text="Modificar datos"
+            onPress={()=> navigation.navigate('Details')}
 
         <Text>En esta pantalla va la data capturada de registro </Text>
         <Separator/>
@@ -14,9 +23,10 @@ function AccountScreen({navigation}) {
             style={styles.button}
             title="Modificar datos"
         />
-        
         <Separator/>
-
+         <FlatButton
+            text="Crear plan "
+            onPress={() => navigation.navigate('Planning')}
          <Button
             style={styles.button}
             title=" Empezar a probar mi condicion fisica "
@@ -49,5 +59,18 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 8,
 
+  },
+  title2:{
+    fontStyle: 'italic',
+    fontSize:30,
+    fontWeight: 'bold',
+
+  },
+  item: {
+    borderColor:'#000000',
+    borderWidth:1,
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
 });
