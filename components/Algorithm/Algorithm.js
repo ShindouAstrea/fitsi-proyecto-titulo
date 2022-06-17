@@ -1,5 +1,7 @@
 import React, {useEffect,useState} from 'react';
-import { Text, View ,Button,StyleSheet } from 'react-native'
+import { Text, View ,Button,StyleSheet } from 'react-native';
+import  Accelerometer  from '../Sensors/Accelerometer';
+
 
 
 
@@ -15,6 +17,7 @@ const Separator = () => <View style={styles.separator} />;
  * @returns un contronometro 
  */
 function AlgorithmIA ({navigation}) {
+  
      //-------------------------------------------------------------------------------------------------------------
   //Hooks de seteo de variables
   const [mins, setMins] = useState(0) ;
@@ -34,11 +37,15 @@ function AlgorithmIA ({navigation}) {
           }
           else setSecs(s => s+1)
       }, 1000)
-      
+
     )
-    return {clock}
-  };[] ;
- 
+  } ;
+  const resetTime=()=> {
+    setClock(
+      setMins(0),
+      setSecs(0),
+    )
+  };
   const stopClock=() => {
     if(clock){
       clearInterval(clock);
@@ -49,8 +56,8 @@ function AlgorithmIA ({navigation}) {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',alignContent: 'center'}}>
-      <Text style={{ fontSize: 30 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center'}}> Toca el botón "Iniciar" para empezar el test y "Stop para detener el escaneo"</Text>
-      <Text style={{ fontSize: 30 ,justifyContent: 'center' , alignItems: 'center'}}> Minutos :</Text>
+      <Text style={{ fontSize: 30 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center'}}> Toca el botón "Iniciar" para empezar el test y "Crear plan" para detener el escaneo"</Text>
+      <Text style={{ fontSize: 30 ,justifyContent: 'center' , alignItems: 'center'}}> Minutos : Segundos</Text>
       <Text style={{ fontSize: 40 }}>
         {mins}:{secs}
       </Text>
@@ -60,15 +67,22 @@ function AlgorithmIA ({navigation}) {
       />
       <Separator/>
       <Button
-        title= "Stop"
-        onPress={stopClock}
+        title= "Reiniciar Tiempo"
+        onPress={() => {
+          stopClock();
+          resetTime();
+          
+        }}
       />
       <Separator/>
-      <Button
-        title= "Crear plan"
-        onPress={() => { navigation.navigate('Details',{
-          mins:1,secs:60,
-        });
+      <Button 
+        title = "Crear plan"
+        onPress={() => {
+           navigation.navigate('Planning',{
+          mins:{mins},secs:{secs},
+        },
+        );
+        stopClock();
       }}
       />
      
