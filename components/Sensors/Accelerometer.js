@@ -4,9 +4,9 @@ import { Accelerometer } from 'expo-sensors';
 
 export default function App() {
   const [data, setData] = useState({
-    x: 0,
-    y: 0,
-    z: 0,
+    aceX: 0,
+    aceY: 0,
+    aceZ: 0,
   });
   const [subscription, setSubscription] = useState(null);
 
@@ -36,12 +36,12 @@ export default function App() {
     return () => _unsubscribe();
   }, []);
 
-  const { x, y, z } = data;
+  const { aceX, aceY, aceZ } = data;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Accelerometer: (in Gs where 1 G = 9.81 m s^-2)</Text>
       <Text style={styles.text}>
-        x: {round(x)} y: {round(y)} z: {round(z)}
+        x: {round(aceX)} y: {round(aceY)} z: {round(aceZ)}
       </Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={subscription ? _unsubscribe : _subscribe} style={styles.button}>
