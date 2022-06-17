@@ -46,6 +46,8 @@ const Data =[
     {
         id:"05",
         Nombre:"Prueba video",
+        Dificultad:"5",
+        Series:"1",
         Repeticiones:10,
         Tiempo:20,
         Video:"https://www.youtube.com/watch?v=mZHSimF0TkY&ab_channel=RafaelCaldera",
