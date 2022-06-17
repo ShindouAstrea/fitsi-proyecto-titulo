@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Plans from '../components/Algorithm/ExercisesPlans';
+import FlatButton from './Nav/Buttom';
 
 /** Item es el objeto con el Formato o estilo del objeto que sera listado ,en este caso son los planes.
  * Los valores {title} , {description} son variables son pasadas a este objeto.
@@ -13,9 +14,8 @@ import Plans from '../components/Algorithm/ExercisesPlans';
  * keyExtractor es el argumento que sirve para saber como extraer los valores del arreglo , siempre deberia ser un id.
  * */ 
 const DetailButton = ({navigation}) =>
-<Button
-      style={styleScreen.button}
-      title = "Detalles del ejercicio "
+    <FlatButton
+      text = "Detalles del ejercicio "
       onPress = {() => navigation.navigate('Exercise')}
     />
     
@@ -26,9 +26,10 @@ const Item = ({ title,description}) => (
     <Text style={styles.description}>{description}</Text>
     
     <DetailButton/>
-    
+  
   </View>
-);
+  );
+
 
  //Separator es una variable o vista personalizada para realizar un espaciado cada vez que se le invoca en las vistas o renderizado de la Screen.
 const Separator = () => < View style = { styleScreen.separator }

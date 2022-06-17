@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList } from 'react-native';
+import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import Data from './Algorithm/Data';
 
 const Item = ({Nombre,Repeticiones,Tiempo,Video}) =>(
