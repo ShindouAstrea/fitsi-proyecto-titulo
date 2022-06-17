@@ -1,16 +1,14 @@
 
-import * as React from 'react';
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
-import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList } from 'react-native';
 import Data from './Algorithm/Data';
 
 const Item = ({Nombre,Repeticiones,Series ,Dificultad,Tiempo,Video}) =>(
   <View style={styles.item}>
     <Text style={styles.title}>{Nombre}</Text>
     <Text style={styles.description}>Nivel :  {Dificultad}</Text>
-    <Text style={styles.description}>Cantidad de repeticiones {Series}</Text>
-    <Text style={styles.description}>Cantidad de repeticiones {Repeticiones}</Text>
+    <Text style={styles.description}>Cantidad de Series: {Series}</Text>
+    <Text style={styles.description}>Cantidad de Repeticiones: {Repeticiones}</Text>
     <Text style={styles.description}> Duración {Tiempo} minutos</Text>
     <Text style={styles.description}> Video de ejemplo: {Video}</Text>
   </View>
