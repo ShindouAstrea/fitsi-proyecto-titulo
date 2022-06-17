@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Plans from '../components/Algorithm/ExercisesPlans';
+import { TouchableOpacity } from 'react-native-web';
 
 
 
@@ -34,30 +35,40 @@ const Separator = () => < View style = { styleScreen.separator }
  * @param {navigation} navigation - variable que permite realizar el cambio de vista. 
  * @returns {View} Vista del listado de los planes de ejercicio.
  */
-function PlanningScreen({ navigation }) {
+function PlanningScreen({route, navigation }) {
+  const {mins,secs}= route.params;
+  const minutos = JSON.stringify(mins);
+  const segundos = JSON.stringify(secs);
+  let setNivel = 0;
+  if((minutos*60 + segundos)<=60){
+    setNivel=0
+   }else setNivel=5;
   /**
    * 
    * @param {item} Objeto - Objeto que se desea renderizar muchas veces en una lista 
    * @returns {View} Listado de items
    */
 
-  const renderItem = ({ item,navigation }) => (
+  const renderItem = ({ item }) => (
     <Item title={item.title} description={item.descripcion}/>
-      
-  );
+  )
     return (
         <View style ={styles.container}>
           <FlatList
             data={Plans}
-            renderItem={renderItem}
+            
             keyExtractor={item => item.id}
-            extraData={navigation}
+            renderItem={renderItem}
           />
-          <Button style={styles.button}
-            title="Tomar pruebas"
-            onPress={() => navigation.navigate('Accelerometer')}
-            />
+          <Text style={ styles.description}>{minutos} segundos : {segundos} , Nivel {setNivel}</Text>
+          return()
+          <Button 
+          style={styleScreen.button}
+          title = "Detalles del ejercicio "
+          onPress = {() => navigation.navigate('Details')}
+      />
         </View>
+
     );
 };
 export default PlanningScreen;
