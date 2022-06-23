@@ -5,7 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
  //JS que contienen las funciones o "screens" de las diversas pantallas.
  
-import SignupScreen from './components/SignupScreen';
+import SignupScreen from './components/Auth/SignupScreen';
+import AuthScreen from './components/Auth/AuthScreen';
+import LoginScreen from './components/Auth/LoginScreen';
 
 import BottomNav from './components/Nav/BottomNav';
 
@@ -13,11 +15,12 @@ import BottomNav from './components/Nav/BottomNav';
 import Accelerometer from './components/Sensors/Accelerometer';
 import Gyroscope from './components/Sensors/Gyroscope';
 //JS  que contienen las vistas relacionadas al plan de ejercicio
-import AccountScreen from './components/AccountScreen';
-import DetailExerciseScreen from './components/DetailExerciseScreen';
-import PlanningScreen from './components/PlanningScreen';
+import AccountScreen from './components/Screens/AccountScreen';
+import DetailExerciseScreen from './components/Screens/DetailExerciseScreen';
+import PlanningScreen from './components/Screens/PlanningScreen';
 import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
+
 
 
 
@@ -39,27 +42,34 @@ const Stack = createNativeStackNavigator();
       * */
       <NavigationContainer>  
         <Stack.Navigator 
-          initialRouteName="Forms"
+          initialRouteName="Auth"
           screenOptions={{
             headerShown: true,
             headerStyle: {
               backgroundColor: '#4cbdfd',
+              textAlign: 'center',
+              justifyContent: 'center',
             },
-            headerTintColor: '#4cbdfd',
+            headerTintColor: 'white',
             headerTitleStyle: {
+              textAlign:'center',
+              justifyContent: 'center',
+              alignContent: 'center',
               fontWeight: 'normal',
               backgroundColor: '#4cbdfd',
             },
           }}
         >
+          <Stack.Screen name="Auth" component={AuthScreen} options={{title: 'Inicio' }}/>
+          <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Inicio de sesión' }}/>
           <Stack.Screen name="Home" component={BottomNav} options={{title: 'Inicio' }}/>
           <Stack.Screen name="Gyroscope" component={Gyroscope} />
           <Stack.Screen name="Accelerometer" component={Accelerometer}/>
-          <Stack.Screen name="Forms" component={SignupScreen} options={{title: 'Registro' }}/>
-          <Stack.Screen name="Account" component={AccountScreen} options={{headerTitle:"",title: 'Perfil' }}/>
-          <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: 'Planes de Ejercicio' }}/>
-          <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Plan de ejercicio' }}/>
-          <Stack.Screen name="Algorithm" component={AlgorithmIA}/>
+          <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Registro' }}/>
+          <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
+          <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: ' Ejercicios' }}/>
+          <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Planes de ejercicio' }}/>
+          <Stack.Screen name="Algorithm" component={AlgorithmIA}options={{title: 'Test' }}/>
            <Stack.Screen name="Ejemplo" component={Ejemplo}/>
         </Stack.Navigator>
       </NavigationContainer>
