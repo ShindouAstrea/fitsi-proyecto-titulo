@@ -46,7 +46,7 @@ const Stack = createNativeStackNavigator();
           screenOptions={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#4cbdfd',
+              backgroundColor: 'black',
               textAlign: 'center',
               justifyContent: 'center',
             },
