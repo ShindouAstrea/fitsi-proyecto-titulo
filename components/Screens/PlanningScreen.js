@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native';
 import Plans from '../Algorithm/ExercisesPlans';
-
+import usuario from '../Algorithm/Usuario';
 import FlatButton from '../Buttom';
 
 
+const Separator = () => < View style = { styleScreen.separator }
 
-
+/>;
     /**
      * Funcion para crear un item u objeto para mostrarse en forma de View
      * @param {string} title- Valor del que tiene "title" en el array entregado a FlatList.
@@ -14,9 +15,10 @@ import FlatButton from '../Buttom';
      * @returns  {View} [Objeto en una vista , similar a un card]
      */
 
-const Item = ({ title,level,description,navigation}) => (
+const Item = ({ title,level,description,navigation,time}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
+    <Text style={styles.description}>Duracion semanal del plan : {time}</Text>
     <Text style={styles.description}>Dificultad del plan {level}</Text>
     <Text style={styles.description}>{description}</Text>
     <FlatButton 
@@ -27,8 +29,7 @@ const Item = ({ title,level,description,navigation}) => (
 );
 
  //Separator es una variable o vista personalizada para realizar un espaciado cada vez que se le invoca en las vistas o renderizado de la Screen.
-const Separator = () => < View style = { styleScreen.separator }
-/>;
+
 /**
  * Funcion que renderiza la vista de listado de planes, lo hace gracias a FlatList principalmente , que recibe como
  * parametro en data un array con todos los objetos , en renderItem la funcion que renderiza el listado y en keyExtractor el id de cada objeto del array.
@@ -36,39 +37,41 @@ const Separator = () => < View style = { styleScreen.separator }
  * @returns {View} Vista del listado de los planes de ejercicio.
  */
 function PlanningScreen({route, navigation }) {
-  const {mins,secs}= route.params;
-  const minutos = JSON.stringify(mins);
+  const {mins,secs,sentidoDelGiro}= route.params;
+  const minutos = mins;
   const segundos = JSON.stringify(secs);
-  console.log(minutos, segundos);
+  const giroIzquierda= JSON.stringify(sentidoDelGiro);
+  
   let Nivel = 0;
  
    /**
     * @Returns {Arryay} Array con la dificultad del plan desde plans
     */
-   const algoritmo = minutos*60+segundos ;
-   console.log(algoritmo);
-   switch(algoritmo){
-    case 15:
-              Nivel=5 ;
-              break;
-    case algoritmo < 120 && algoritmo > 90 :
-              Nivel =4 ;
-              break ;
-    case algoritmo <=90 && algoritmo > 60:
-              Nivel = 3;
-    case algoritmo <= 60 && algoritmo > 30:
-              Nivel = 2;
-              break;
-    case algoritmo <= 30 && algoritmo > 15:
-              Nivel = 1;
+   const algoritmo = segundos.secs ;
+   console.log(secs);
+   console.log(segundos);
+   
+   if(algoritmo>0){
+    
+    Nivel=1;
    }
-  /**
+   console.log(Nivel);
+  //  else if(algoritmo>=30 && algoritmo< 200){
+  //   Nivel= 2;
+  //   } else if(algoritmo>=45 && algoritmo<60){
+  //     Nivel= 3;
+  //   }  else if(algoritmo>=60 && algoritmo<75){
+  //     Nivel= 3;
+  //   }else if(algoritmo>=75 && algoritmo<90){
+  //   Nivel= 4;
+  //   }
+   /**
    * 
    * @param {item} Objeto - Objeto que se desea renderizar muchas veces en una lista 
    * @returns {View} Listado de items
    */
   const renderItem = ({ item }) => (
-    <Item title={item.titulo} level ={item.dificultad}description={item.descripcion}/>
+    <Item title={item.titulo} level ={item.dificultad} time={item.tiempo} description={item.descripcion} />
   )
     return (
         <View style ={styles.container}>
@@ -77,7 +80,8 @@ function PlanningScreen({route, navigation }) {
             keyExtractor={item => item.id}
             renderItem={renderItem}
           />
-          <Text>Minutos :{minutos} Segundos :{segundos} Nivel : {Nivel}</Text>
+          <Separator/>
+          
         </View>
 
     );
@@ -88,6 +92,7 @@ export default PlanningScreen;
 const styleScreen = StyleSheet.create({
     container: {
         flex: 1,
+        
 
     },
     title: {

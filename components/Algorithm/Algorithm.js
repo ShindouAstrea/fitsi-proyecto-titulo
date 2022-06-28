@@ -15,7 +15,7 @@ import FlatButton from '../Buttom';
 const Separator = () => <View style={styles.separator} />;
 /**
  * 
- * @returns un contronometro 
+ * @returns un contronometro que utilizar el giroscopio
  */
 function AlgorithmIA ({navigation}) {
   
@@ -61,6 +61,8 @@ function AlgorithmIA ({navigation}) {
  * z gyro -> Invert phone (giro)
  *  
 */
+const [Nivel,setNivel]=useState();
+const [isLeft,setPos]= useState(null);
 const [data, setData] = useState({
   giroX: 0,
   giroY: 0,
@@ -68,14 +70,14 @@ const [data, setData] = useState({
 });
 const [subscription, setSubscription] = useState(null);
 
-const _slow = () => {
+const _slowUpdate = () => {
   Gyroscope.setUpdateInterval(1000);
 };
-const mediumUpdate = () => {
+const _mediumUpdate = () => {
   Gyroscope.setUpdateInterval(500);
 };
 
-const _fast = () => {
+const _fastUpdate = () => {
   Gyroscope.setUpdateInterval(250);
 };
 
@@ -91,12 +93,23 @@ const _unsubscribe = () => {
   subscription && subscription.remove();
   setSubscription(null);
 };
-
-useEffect(() => {
+/** 
+ * Funcion que se encarga de detectar el sensor y verificar si el giro que se hace es izquierda o derecha.La toma de datos esta seteada en 500ms
+ * @return {boolean} Retorna el valor de isLeft para detectar la posicion del celular 
+ * 
+*/
+const testForPlans  = () => {
   _subscribe();
-  return () => _unsubscribe();
-}, []);
+  _mediumUpdate();
+  if(giroX<1){
+    setPos(true);
+    return _unsubscribe();
+  }
+  else {setPos(false); return _unsubscribe();}
+};
+const algoritmoDeNivel = () => {
 
+}
 const { giroX, giroY, giroZ } = data;
 
 
@@ -134,8 +147,9 @@ const { giroX, giroY, giroZ } = data;
       <FlatButton 
         text = "Crear plan"
         onPress={() => {
-           navigation.navigate('Planning',{
-          mins:{mins},secs:{secs},
+          testForPlans();
+          navigation.navigate('Planning',{
+          mins:{mins},secs:{secs},sentidoDelGiro:{isLeft},
         },
         );
         stopClock();
@@ -150,6 +164,7 @@ export default AlgorithmIA;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
     justifyContent: 'center',
     justifyItems: 'center',
     alignContent: 'center',
