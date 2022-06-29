@@ -20,7 +20,7 @@ const styles=StyleSheet.create({
             borderRadius:50,
             paddingVertical:15,
             paddingHorizontal:12,
-            backgroundColor:'#4cbdfd',
+            backgroundColor:'#44aae3',
         },
         buttonText:{
             color:'white',

@@ -13,6 +13,9 @@ export default function App() {
   const _slow = () => {
     Gyroscope.setUpdateInterval(1000);
   };
+  const mediumUpdate = () => {
+    Gyroscope.setUpdateInterval(500);
+  };
 
   const _fast = () => {
     Gyroscope.setUpdateInterval(0);

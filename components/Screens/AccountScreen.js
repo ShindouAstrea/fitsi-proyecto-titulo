@@ -1,7 +1,9 @@
   import * as React from 'react';
 import { View, Text,Button ,StyleSheet} from 'react-native';
-import FlatButton from './Nav/Buttom';
+import FlatButton from '../Buttom';
+import usuario from '../Algorithm/Usuario';
 const Separator = () => <View style={styles.separator} />;
+const nombreU = usuario.Nombre;
 function AccountScreen({navigation}) {
 /**
   const{Nombre,Apellido}= route.params;
@@ -15,7 +17,7 @@ function AccountScreen({navigation}) {
       <View style={styles.container}>
         
 
-        <Text style={styles.title}> En esta pantalla va la data capturada de registro </Text>
+        <Text style={styles.title}>{nombreU} </Text>
         <Separator/>
         <FlatButton 
             text="Modificar datos"
@@ -34,6 +36,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
     justifyContent: 'center',
     justifyItems: 'center',
     alignContent: 'center',
