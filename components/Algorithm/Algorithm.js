@@ -101,15 +101,12 @@ const _unsubscribe = () => {
 const testForPlans  = () => {
   _subscribe();
   _mediumUpdate();
-  if(giroX<1){
-    setPos(true);
+  if(giroZ>0){
+    setPos(false);
     return _unsubscribe();
   }
-  else {setPos(false); return _unsubscribe();}
+  else if(giroZ<0){setPos(true); return _unsubscribe();}
 };
-const algoritmoDeNivel = () => {
-
-}
 const { giroX, giroY, giroZ } = data;
 
 
@@ -134,16 +131,6 @@ const { giroX, giroY, giroZ } = data;
         }}
       />
        <Separator/>
-       <FlatButton
-        text= "Capturar resultados"
-        onPress={() => {
-          navigation.navigate('Details',{mins:{mins},secs:{secs}});
-          stopClock();
-          resetTime();
-          
-        }}
-      />  
-      <Separator/>
       <FlatButton 
         text = "Crear plan"
         onPress={() => {
