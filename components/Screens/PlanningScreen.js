@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native';
 import Plans from '../Algorithm/ExercisesPlans';
@@ -5,9 +6,18 @@ import usuario from '../Algorithm/Usuario';
 import FlatButton from '../Buttom';
 
 
-const Separator = () => < View style = { styleScreen.separator }
+const Separator = () => < View style = { styleScreen.separator } />;
+function ButtonToNavigate () {
+  const navigation = useNavigation();
+  return(
+    <FlatButton
+    text= "Ver Ejercicios"
+    onPress={() => {navigation.navigate('ListExercises')}}
+  />
+  );
+}
 
-/>;
+
     /**
      * Funcion para crear un item u objeto para mostrarse en forma de View
      * @param {string} title- Valor del que tiene "title" en el array entregado a FlatList.
@@ -15,18 +25,15 @@ const Separator = () => < View style = { styleScreen.separator }
      * @returns  {View} [Objeto en una vista , similar a un card]
      */
 
-const Item = ({ title,level,description,navigation,time}) => (
+const Item = ({ title,level,description,time}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.description}>Duracion semanal del plan : {time}</Text>
     <Text style={styles.description}>Dificultad del plan {level}</Text>
     <Text style={styles.description}>{description}</Text>
-    <FlatButton 
-          text = "Detalles del ejercicio "
-          onPress = {() => navigation.push('Details')}
-      />
+    <ButtonToNavigate/>
   </View>
-);
+)
 
  //Separator es una variable o vista personalizada para realizar un espaciado cada vez que se le invoca en las vistas o renderizado de la Screen.
 
@@ -36,10 +43,9 @@ const Item = ({ title,level,description,navigation,time}) => (
  * @param {navigation} navigation - variable que permite realizar el cambio de vista. 
  * @returns {View} Vista del listado de los planes de ejercicio.
  */
-function PlanningScreen({route, navigation }) {
+function PlanningScreen({route }) {
   const {mins,secs,sentidoDelGiro}= route.params;
   const minutos = mins;
-  const segundos = JSON.stringify(secs);
   const giroIzquierda= JSON.stringify(sentidoDelGiro);
   
   let Nivel = 0;
@@ -47,15 +53,10 @@ function PlanningScreen({route, navigation }) {
    /**
     * @Returns {Arryay} Array con la dificultad del plan desde plans
     */
-   const algoritmo = segundos.secs ;
-   console.log(secs);
-   console.log(segundos);
-   
-   if(algoritmo>0){
-    
-    Nivel=1;
-   }
-   console.log(Nivel);
+  //  if(giroIzquierda){
+  //   Nivel = 5
+  //  }
+  //  else Nivel =0 ;
   //  else if(algoritmo>=30 && algoritmo< 200){
   //   Nivel= 2;
   //   } else if(algoritmo>=45 && algoritmo<60){
@@ -71,14 +72,19 @@ function PlanningScreen({route, navigation }) {
    * @returns {View} Listado de items
    */
   const renderItem = ({ item }) => (
-    <Item title={item.titulo} level ={item.dificultad} time={item.tiempo} description={item.descripcion} />
+    
+    <Item title={item.titulo} level ={item.dificultad} time={item.tiempo} description={item.descripcion}
+    
+    />
   )
+  const navigation = useNavigation();
     return (
         <View style ={styles.container}>
           <FlatList
             data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
             keyExtractor={item => item.id}
             renderItem={renderItem}
+            extraData={navigation}
           />
           <Separator/>
           
