@@ -18,8 +18,10 @@ import Gyroscope from './components/Sensors/Gyroscope';
 import AccountScreen from './components/Screens/AccountScreen';
 import DetailExerciseScreen from './components/Screens/DetailExerciseScreen';
 import PlanningScreen from './components/Screens/PlanningScreen';
+import Video from './components/Algorithm/Video';
 import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
+import ListOfExercisesScreen from './components/Screens/ListOfExcercisesScreen';
 
 
 
@@ -67,9 +69,11 @@ const Stack = createNativeStackNavigator();
           <Stack.Screen name="Accelerometer" component={Accelerometer}/>
           <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Registro' }}/>
           <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
-          <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: ' Ejercicios' }}/>
+          <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: ' Detalles' }}/>
           <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Planes de ejercicio' }}/>
           <Stack.Screen name="Algorithm" component={AlgorithmIA}options={{title: 'Test' }}/>
+          <Stack.Screen name="ListExercises" component={ListOfExercisesScreen} options={{title: 'Listado de ejercicios'}}/>
+          <Stack.Screen name="Video" component={Video}/>
            <Stack.Screen name="Ejemplo" component={Ejemplo}/>
         </Stack.Navigator>
       </NavigationContainer>
