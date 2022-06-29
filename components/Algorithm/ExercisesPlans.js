@@ -1,6 +1,7 @@
 const Plans =[
     {
         id:"01",
+        tipo:"3",
         titulo:"Aumento de Fuerza",
         dificultad:"0",
         tiempo:"2 horas",
@@ -10,6 +11,7 @@ const Plans =[
     },
     {
         id:"02",
+        tipo:"3",
         titulo:"Aumento de Resistencia",
         dificultad:"0",
         tiempo:"1 hora",
@@ -19,6 +21,7 @@ const Plans =[
     },
     {
       id:"03",
+      tipo:"3",
       titulo:"Aumento de piernas",
       dificultad:"1",
       tiempo:"18 horas",
@@ -28,6 +31,7 @@ const Plans =[
     },
     {
         id:"04",
+        tipo:"3",
         titulo:"Aumento de cerebro",
         dificultad:"5",
         tiempo:"15 horas",
@@ -37,6 +41,7 @@ const Plans =[
     },
     {
       id:"05",
+      tipo:"3",
       titulo:"Aumento de brazos",
       dificultad:"4",
       tiempo:"20 horas",
@@ -46,6 +51,7 @@ const Plans =[
     },
     {
       id:"06",
+      tipo:"3",
       titulo:"Aumento de Estatura",
       dificultad:"3",
       tiempo:"10 horas",

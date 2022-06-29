@@ -1,45 +1,43 @@
 
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
+import FlatButton from '../Buttom';
+import Video from '../Algorithm/Video';
 import ListadoEjercicios from '../Algorithm/ListadoEjercicios';
+import { useNavigation } from '@react-navigation/native';
 
-const Item = ({Nombre,Repeticiones,Series ,Dificultad,Tiempo,Video}) =>(
-  <View style={styles.item}>
-    <Text style={styles.title}>{Nombre}</Text>
-    <Text style={styles.description}>Nivel :  {Dificultad}</Text>
-    <Text style={styles.description}>Cantidad de Series: {Series}</Text>
-    <Text style={styles.description}>Cantidad de Repeticiones: {Repeticiones}</Text>
-    <Text style={styles.description}> Duración {Tiempo} minuto0s</Text>
-    <Text style={styles.description}> Video de ejemplo: {Video}</Text>
-  </View>
-);
-
-function DetailExerciseScreen({ route,navigation}) {
+function ButtonToNavigate(){
+  const navigation = useNavigation();
+  return(
+    <FlatButton
+    text="Ver Video"
+    onPress={() => {navigation.navigate('Video')}}
+    />
+  )
+}
+function buscarItem(id){
+  return ListadoEjercicios.filter(ListadoEjercicios=>{return ListadoEjercicios.id == id}) ;
   
- 
- const renderItem = ({ item }) => (
-  <Item Nombre={item.Nombre} Dificultad ={item.Dificultad}  Series={item.Series} Repeticiones={item.Repeticiones}Tiempo={item.Tiempo} Video={item.Video}/>
-);
-  const {mins,secs} = route.params;
-  let setNivel = 0;
-  
-  const minutos = JSON.stringify(mins);
-  const segundos = JSON.stringify(secs);
- if((minutos*60 + segundos)<=60){
-  setNivel=0
- }
- else setNivel=5;
-    return ( 
-    <View style={ styles.container}>
-      <FlatList
-        data={ListadoEjercicios}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        
-      />
-      <Text style={ styles.description}>{minutos} segundos : {segundos} , Nivel {setNivel}</Text>
+}
+function LoadItem({itemId}){
+  const Item = ListadoEjercicios[{itemId}];
+  return (
+    <View style={styles.container}>
+      <Video/>
+      <Text style={styles.title}> ID = {itemId}</Text>
+      <Text style={styles.title}>{Item.Nombre}</Text>
+      <Text style={styles.description}>{Item.Dificultad}</Text>
+      <Text style={styles.description}>{Item.Series}</Text>
+      <Text style={styles.description}>{Item.Repeticiones}</Text>
+      <Text style={styles.description}>{Item.Tiempo}</Text>
     </View>
-    );
+  )
+}
+function DetailExerciseScreen({route}) {
+  const {id} = route.params.id;
+    return ( 
+      <LoadItem itemId={id}/>
+    )
 };
 export default DetailExerciseScreen;
 

@@ -9,7 +9,7 @@ const ListadoEjercicios =[
         Series:"2",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"e_EKkqoHxns",
 
     },
     {
@@ -21,7 +21,7 @@ const ListadoEjercicios =[
         Series:"1",
         Repeticiones:20,
         Tiempo:30,
-        Video:"https://www.youtube.com/watch?v=l7aszLSPCVg",
+        Video:"l7aszLSPCVg",
 
     },
     {
@@ -32,7 +32,7 @@ const ListadoEjercicios =[
         Series:"2",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"dkq-hCgoQdI",
 
     },
     {
@@ -44,19 +44,19 @@ const ListadoEjercicios =[
         Series:"1",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"GeLq8cMODLc",
 
     },
     {
         id:"05",
-        Nombre:"Prueba video",
+        Nombre:"Ajedrez",
         Dificultad:"5",
-        Tipo:"{3},{2},{1}",
+        Tipo:"{3}",
         Series:"1",
-        Repeticiones:10,
-        Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=mZHSimF0TkY&ab_channel=RafaelCaldera",
-    },
+        Repeticiones: "No Aplica",
+        Tiempo: "Indefinido",
+        Video:"FDUELNc2H5E"
+    }
 ];
 export default ListadoEjercicios;
 
