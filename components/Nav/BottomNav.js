@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet,Button,Image } from 'react-native';
 import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import PlanningScreen from '../PlanningScreen';
-import AccountScreen from '../AccountScreen';
+import PlanningScreen from '../Screens/PlanningScreen';
+import AccountScreen from '../Screens/AccountScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();

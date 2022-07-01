@@ -1,14 +1,15 @@
 
 
-const Data =[
+const ListadoEjercicios =[
     {
         id:"01",
         Nombre:"Flexiones",
         Dificultad:"5",
+        Tipo:"{3},{2},{1}",
         Series:"2",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"e_EKkqoHxns",
 
     },
     {
@@ -16,20 +17,22 @@ const Data =[
         id:"02",
         Nombre:"Sentadillas",
         Dificultad:"0",
+        Tipo:"{3},{2},{1}",
         Series:"1",
         Repeticiones:20,
         Tiempo:30,
-        Video:"https://www.youtube.com/watch?v=l7aszLSPCVg",
+        Video:"l7aszLSPCVg",
 
     },
     {
         id:"03",
         Nombre:"Abdominales",
         Dificultad:"0",
+        Tipo:"{3},{2},{1}",
         Series:"2",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"dkq-hCgoQdI",
 
     },
     {
@@ -37,19 +40,23 @@ const Data =[
         id:"04",
         Nombre:"Press banca",
         Dificultad:"5",
+        Tipo:"{3},{2},{1}",
         Series:"1",
         Repeticiones:10,
         Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=e_EKkqoHxns",
+        Video:"GeLq8cMODLc",
 
     },
     {
         id:"05",
-        Nombre:"Prueba video",
-        Repeticiones:10,
-        Tiempo:20,
-        Video:"https://www.youtube.com/watch?v=mZHSimF0TkY&ab_channel=RafaelCaldera",
-    },
+        Nombre:"Ajedrez",
+        Dificultad:"5",
+        Tipo:"{3}",
+        Series:"1",
+        Repeticiones: "No Aplica",
+        Tiempo: "Indefinido",
+        Video:"FDUELNc2H5E"
+    }
 ];
-export default Data;
+export default ListadoEjercicios;
 

@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react';
 import { SafeAreaView, StyleSheet, TextInput,View ,Button,Text,ScrollView} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import usuario from './Algorithm/Usuario';
-import FlatButton from './Nav/Buttom';
+import usuario from '../Algorithm/Usuario'
+import FlatButton from '../Buttom';
 
   
 
@@ -20,7 +20,7 @@ function SignupScreen({ navigation }) {
   const [Nombre, onChangeText] = useState(null); //Variable creada para que el nombre de lo usuarios
   const [Apellido, onChangeApellido] = useState(null); //Variable creada para que el nombre de lo usuarios
   const [Nickname, onChangeNickname] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Peso, onChangePeso] = React.useState(null); // Variable creada para almacenar el peso del usuario.
+  const [Peso, onChangePeso] = useState(null); // Variable creada para almacenar el peso del usuario.
 
   // *********************************Listas************************************************************
   const listado = ['Masculino', 'Femenino', 'No binario'];
@@ -29,11 +29,14 @@ function SignupScreen({ navigation }) {
   const Cuerpos = ['Ectomorfo', 'Mesomorfo', 'Endomorfo'];
   const Silueta = ['Trapecio', 'Triangulo invertido', 'Triangulo', 'Oval', 'Rectangulo'];
 
-  useEffect(() => {
-    usuario["Nombre"] = Nombre,
-      usuario.Apellido = { onChangeApellido },
-      usuario.NickName = onChangeNickname;
-  }, [Nombre, Apellido, Nickname]);
+  const save =() =>{
+    usuario.push({
+      Nombre:{Nombre},
+      Apellido:{Apellido},
+      NickName:{ Nickname},
+      password:"11111",
+      peso:{Peso}})
+  }
 
   return (
     //inserccion de los datos de registro de los usarios , cuando abren por primera vez el programa por primera vez, en el programa.
@@ -126,7 +129,9 @@ function SignupScreen({ navigation }) {
 
           <FlatButton
           text='siguente'
-          onPress={() => {navigation.navigate('Home', { Nombre: { Nombre }, Apellido: { Apellido }, });}} />
+          onPress={() => {
+            save();
+            navigation.navigate('Account', { Nombre: { Nombre }, Apellido: { Apellido }, });}} />
       </ScrollView>
       
     </View>

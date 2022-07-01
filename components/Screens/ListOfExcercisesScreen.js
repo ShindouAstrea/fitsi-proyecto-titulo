@@ -1,55 +1,58 @@
 
-import * as React from 'react';
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
-import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList } from 'react-native';
-import Data from './Algorithm/Data';
+import FlatButton from '../Buttom';
+import Video from '../Algorithm/Video';
+import ListadoEjercicios from '../Algorithm/ListadoEjercicios';
+import { useNavigation } from '@react-navigation/native';
 
-const Item = ({Nombre,Repeticiones,Series ,Dificultad,Tiempo,Video}) =>(
+function ButtonToNavigate({id}){
+  const navigation = useNavigation();
+  return(
+    <FlatButton
+    text="Más Información"
+    // onPress={() => {navigation.navigate('Details',{id:{id},},);}}
+    />
+  )
+}
+
+const Item = ({Nombre,Repeticiones,Series ,link,Dificultad,Tiempo,id}) =>(
+  
   <View style={styles.item}>
+    <Video link={link}/>
     <Text style={styles.title}>{Nombre}</Text>
     <Text style={styles.description}>Nivel :  {Dificultad}</Text>
-    <Text style={styles.description}>Cantidad de repeticiones {Series}</Text>
-    <Text style={styles.description}>Cantidad de repeticiones {Repeticiones}</Text>
+    <Text style={styles.description}>Cantidad de Series: {Series}</Text>
+    <Text style={styles.description}>Cantidad de Repeticiones: {Repeticiones}</Text>
     <Text style={styles.description}> Duración {Tiempo} minutos</Text>
-    <Text style={styles.description}> Video de ejemplo: {Video}</Text>
+    <ButtonToNavigate id={id}/>
   </View>
 );
 
-function DetailExerciseScreen({ route,navigation}) {
+function ListOfExercisesScreen({navigation}) {
   
  
  const renderItem = ({ item }) => (
-  <Item Nombre={item.Nombre} Dificultad ={item.Dificultad}  Series={item.Series} Repeticiones={item.Repeticiones}Tiempo={item.Tiempo} Video={item.Video}/>
+  <Item Nombre={item.Nombre} Dificultad ={item.Dificultad}  Series={item.Series} Repeticiones={item.Repeticiones}Tiempo={item.Tiempo} link={item.Video} id={item.id}/>
 );
-  const {mins,secs} = route.params;
-  let setNivel = 0;
-  
-  const minutos = JSON.stringify(mins);
-  const segundos = JSON.stringify(secs);
- if((minutos*60 + segundos)<=60){
-  setNivel=0
- }
- else setNivel=5;
     return ( 
     <View style={ styles.container}>
       <FlatList
-        data={Data}
+        data={ListadoEjercicios}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        
       />
-      <Text style={ styles.description}>{minutos} segundos : {segundos} , Nivel {setNivel}</Text>
     </View>
     );
 };
-export default DetailExerciseScreen;
+export default ListOfExercisesScreen;
 
 //Estilos de como se compartan los elemetos de esta vista
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
+  
     marginTop: StatusBar.currentHeight || 0,
   },
   title:{
