@@ -3,10 +3,33 @@ import { SafeAreaView, StyleSheet, TextInput,View ,Button,Text,ScrollView} from 
 import SelectDropdown from "react-native-select-dropdown";
 import usuario from '../Algorithm/Usuario'
 import FlatButton from '../Buttom';
+import {firebaseConfig} from '../../database/firebase';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 
-  
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
 
 
+
+
+const ver = async () =>{
+  const querySnapshot = await getDocs(collection(db, "Ejercicio"));
+  querySnapshot.forEach((doc) => {
+  //console.log(`${doc.id} => ${doc.data()}`); Forma de mostrar la coleccion
+  //console.log(doc.data()); Data de los campos
+  console.log(`${doc.id} => ${doc.data()}`)
+
+});
+};
+
+
+const lista = () => {
+  console.log(obtener(db))
+};
 
   /** 
      * Funcion para crear la interfaz de registro , donde se guardaran los distintos datos del usuario talez como
@@ -17,10 +40,16 @@ import FlatButton from '../Buttom';
      */
 function SignupScreen({ navigation }) {
   // En la primera interfaz de registro se almacen los datos de nombre - apellido y un apodo a eleccion del usuario.
-  const [Nombre, onChangeText] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Apellido, onChangeApellido] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Nickname, onChangeNickname] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Peso, onChangePeso] = useState(null); // Variable creada para almacenar el peso del usuario.
+  const [Nombre, setnombre] = useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Apellido, setApellido] = useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Nickname, setNickname] = useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Peso, setPeso] = useState(null); // Variable creada para almacenar el peso del usuario.
+  const [Edad1,setEdad]=useState(null);
+  const [Genero,setGenero] = useState(null);
+  const [Altura1,setAltura] = useState(null);
+  const [Cuerpo,setCuerpo] = useState(null);
+  const [Silueta1,setSilueta] = useState(null);
+  
 
   // *********************************Listas************************************************************
   const listado = ['Masculino', 'Femenino', 'No binario'];
@@ -29,16 +58,21 @@ function SignupScreen({ navigation }) {
   const Cuerpos = ['Ectomorfo', 'Mesomorfo', 'Endomorfo'];
   const Silueta = ['Trapecio', 'Triangulo invertido', 'Triangulo', 'Oval', 'Rectangulo'];
 
-  const save =() =>{
-    usuario.push({
-      Nombre:{Nombre},
-      Apellido:{Apellido},
-      NickName:{ Nickname},
-      password:"11111",
-      peso:{Peso}})
+  const guardar = async () =>{
+    await setDoc(doc(db, "Prueba", "UsuarioP"), {
+      Nombre ,
+      Apellido,
+      Peso ,
+      Edad1,
+      Genero,
+      Altura1,
+      Cuerpo,
+      Silueta1
+    });
   }
-
+ 
   return (
+
     //inserccion de los datos de registro de los usarios , cuando abren por primera vez el programa por primera vez, en el programa.
     <View style={{ flex: 1, justifyContent: "center" }}>
       <ScrollView
@@ -49,19 +83,19 @@ function SignupScreen({ navigation }) {
 
         <TextInput
           style={styles.input}
-          onChangeText={onChangeText}
+          onChangeText={(text)=>setnombre(text)}
           value={Nombre}
           placeholder="Ingrese Nombre" />
         <Text style={styles.title}> Ingrese Apellido</Text>
         <TextInput
           style={styles.input}
-          onChangeText={onChangeApellido}
+          onChangeText={(text)=>setApellido(text)}
           value={Apellido}
           placeholder="Ingrese Apellido" />
         <Text style={styles.title}> Ingrese Apodo</Text>
         <TextInput
           style={styles.input}
-          onChangeText={onChangeNickname}
+          onChangeText={(text)=>setNickname(text)}
           value={Nickname}
           placeholder="Ingrese Apodo" />
 
@@ -69,8 +103,9 @@ function SignupScreen({ navigation }) {
         <SelectDropdown style={styles.Boton}
           defaultButtonText={'seleccionar sexo'}
           data={listado}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            console.log(selectedItem);
+            setGenero(selectedItem)
           } }
           rowTextForSelection={(item) => {
             return item;
@@ -80,27 +115,29 @@ function SignupScreen({ navigation }) {
         <SelectDropdown style={styles.Boton}
           defaultButtonText={'seleccionar Edad'}
           data={Edad}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            console.log(selectedItem);
+            setEdad(selectedItem)
           } }
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={(item) => {
             return item;
           } } />
         <Text style={styles.title}> Selecciona Altura</Text>
         <SelectDropdown style={styles.Boton}
           defaultButtonText={'seleccionar Altura'}
           data={Altura}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            console.log(selectedItem);
+            setAltura(selectedItem)
           } }
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={(item) => {
             return item;
           } } />
 
         <Text style={styles.title}> Ingrese Peso</Text>
         <TextInput
           style={styles.input}
-          onChangePeso={onChangePeso}
+          onChangeText={(text)=>setPeso(text)}
           value={Peso}
           keyboardType='numeric'
           placeholder="Ingrese Peso" />
@@ -109,28 +146,30 @@ function SignupScreen({ navigation }) {
         <SelectDropdown style={styles.Boton}
           defaultButtonText={'seleccionar Cuerpo'}
           data={Cuerpos}
-          buttonTextAfterSelection={(selectedItem, index) => {
+          buttonTextAfterSelection={(selectedItem) => {
             return selectedItem;
           } }
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            console.log(selectedItem);
+            setCuerpo(selectedItem)
           } } />
 
         <Text style={styles.title}> Selecciona Tipo de Silueta</Text>
         <SelectDropdown style={styles.Boton}
           defaultButtonText={'seleccionar Silueta'}
           data={Silueta}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
+          onSelect={(selectedItem) => {
+            console.log(selectedItem);
+            setSilueta(selectedItem)
           } }
-          rowTextForSelection={(item, index) => {
+          rowTextForSelection={(item) => {
             return item;
           } } />
 
           <FlatButton
           text='siguente'
           onPress={() => {
-            save();
+            guardar();
             navigation.navigate('Account', { Nombre: { Nombre }, Apellido: { Apellido }, });}} />
       </ScrollView>
       
@@ -138,13 +177,7 @@ function SignupScreen({ navigation }) {
   );
 }
 
-function UwU (Nombre,Apellido,Nickname) {
-  const datos = JSON.stringify({Nombre,Apellido,Nickname});
-  usuario.Nombre = datos["Nombre"];
-  usuario.Apellido = datos.Apellido;
-  usuario.Nickname = datos.Nickname;
-  return;
-};
+
 
 /**
  * Constante creada pra poder proporcionar los estilos de los distintos espacio de la interfaz
