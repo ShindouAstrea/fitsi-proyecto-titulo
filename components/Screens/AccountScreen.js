@@ -2,8 +2,9 @@
 import { View, Text,Button ,StyleSheet} from 'react-native';
 import FlatButton from '../Buttom';
 import usuario from '../Algorithm/Usuario';
+import Userinfo from '../Userinfo';
 const Separator = () => <View style={styles.separator} />;
-const nombreU = usuario.Nombre;
+
 function AccountScreen({navigation}) {
 /**
   const{Nombre,Apellido}= route.params;
@@ -16,9 +17,8 @@ function AccountScreen({navigation}) {
   return (
       <View style={styles.container}>
         
-
-        <Text style={styles.title}>{nombreU} </Text>
         <Separator/>
+        <Userinfo correo = "prueba@mail.com"/>
         <FlatButton 
             text="Modificar datos"
             onPress={()=> navigation.navigate('Details')}
@@ -36,7 +36,6 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     justifyContent: 'center',
     justifyItems: 'center',
     alignContent: 'center',
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
   item: {
     borderColor:'#000000',
     borderWidth:1,
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
   },

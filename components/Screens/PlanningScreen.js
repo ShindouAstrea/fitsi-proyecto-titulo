@@ -1,9 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
+import React, {useEffect,useState} from 'react';
 import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native';
 import Plans from '../Algorithm/ExercisesPlans';
 import usuario from '../Algorithm/Usuario';
 import FlatButton from '../Buttom';
+import {firebaseConfig} from '../../database/firebase';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
 
 
 const Separator = () => < View style = { styleScreen.separator } />;
@@ -47,6 +54,18 @@ function PlanningScreen({route }) {
   const {mins,secs,sentidoDelGiro}= route.params;
   const minutos = mins;
   const giroIzquierda= JSON.stringify(sentidoDelGiro);
+
+  const [listaPlanes,setPlanes] = useState();
+
+  async function cargardatos () {
+    const Planes1 =  await getDocs(collection(db,'Planes'));
+    console.log(Planes1.docs);
+    setPlanes(Planes1.docs);
+  };
+  
+  useEffect(() => {
+    cargardatos();
+  },[])
   
   let Nivel = 0;
  
@@ -73,7 +92,7 @@ function PlanningScreen({route }) {
    */
   const renderItem = ({ item }) => (
     
-    <Item title={item.titulo} level ={item.dificultad} time={item.tiempo} description={item.descripcion}
+    <Item title={item.data().titulo} level ={item.data().dificultad} time={item.data().tiempo} description={item.data().descripcion}
     
     />
   )
@@ -81,7 +100,8 @@ function PlanningScreen({route }) {
     return (
         <View style ={styles.container}>
           <FlatList
-            data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
+            //data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
+            data={listaPlanes}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             extraData={navigation}
@@ -92,6 +112,7 @@ function PlanningScreen({route }) {
 
     );
 };
+
 export default PlanningScreen;
 
  //Estilos que contienen como se deben mostrar los diferentes objetos de la vista.
