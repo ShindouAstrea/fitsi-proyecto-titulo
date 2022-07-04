@@ -57,7 +57,7 @@ function AccountScreen({navigation}) {
    */
    const renderItem = ({ item }) => (
     
-    <Item correo={item.data().Correo} edad={item.data().Edad}nombre ={item.data().Nombre} apellido={item.data().Apellido} cuerpo={item.data().Cuerpo} genero={item.data().Genero} imc={item.data().IMC} peso={item.data().Peso} silueta={item.data().Silueta} apodo={item.data().Apodo} altura={item.data().Altura}
+    <Item correo={item.data().Correo} edad={item.data().Edad}nombre ={item.data().Nombre} apellido={item.data().Apellido} cuerpo={item.data().Cuerpo} genero={item.data().Genero} imc={item.data().IMC} peso={item.data().Peso} silueta={item.data().Silueta} apodo={item.data().Nickname} altura={item.data().Altura}
     
     />
   )
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginVertical: 8,
-    fontSize:16
+    fontSize:20
   },
   fixToText: {
     flexDirection: 'row',
