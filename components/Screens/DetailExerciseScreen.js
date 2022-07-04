@@ -2,8 +2,7 @@
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
 import FlatButton from '../Buttom';
-import Video from '../Algorithm/Video';
-import ListadoEjercicios from '../Algorithm/ListadoEjercicios';
+import Video from '../Video';
 import { useNavigation } from '@react-navigation/native';
 
 function ButtonToNavigate(){

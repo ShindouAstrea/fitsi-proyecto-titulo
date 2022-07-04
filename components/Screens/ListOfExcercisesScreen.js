@@ -2,9 +2,16 @@
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
 import FlatButton from '../Buttom';
-import Video from '../Algorithm/Video';
-import ListadoEjercicios from '../Algorithm/ListadoEjercicios';
+import Video from '../Video';
 import { useNavigation } from '@react-navigation/native';
+import {firebaseConfig} from '../../database/firebase';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
 
 function ButtonToNavigate({id}){
   const navigation = useNavigation();
@@ -24,21 +31,35 @@ const Item = ({Nombre,Repeticiones,Series ,link,Dificultad,Tiempo,id}) =>(
     <Text style={styles.description}>Nivel :  {Dificultad}</Text>
     <Text style={styles.description}>Cantidad de Series: {Series}</Text>
     <Text style={styles.description}>Cantidad de Repeticiones: {Repeticiones}</Text>
-    <Text style={styles.description}> Duración {Tiempo} minutos</Text>
+    <Text style={styles.description}> Duración: {Tiempo} minutos</Text>
     <ButtonToNavigate id={id}/>
   </View>
 );
 
+
+
 function ListOfExercisesScreen({navigation}) {
   
- 
+const[ListaEjerc,setejercicio] = useState();
+
+async function cargardatos () {
+  const Ejercicio1 =  await getDocs(collection(db,'Ejercicios'));
+  console.log(Ejercicio1.docs);
+  setejercicio(Ejercicio1.docs);
+};
+
+useEffect(() => {
+  cargardatos();
+},[])
+
+
  const renderItem = ({ item }) => (
-  <Item Nombre={item.Nombre} Dificultad ={item.Dificultad}  Series={item.Series} Repeticiones={item.Repeticiones}Tiempo={item.Tiempo} link={item.Video} id={item.id}/>
+  <Item Nombre={item.data().Nombre} Dificultad ={item.data().Dificultad}  Series={item.data().Series} Repeticiones={item.data().Repeticiones}Tiempo={item.data().Tiempo} link={item.data().Video} id={item.id}/>
 );
     return ( 
     <View style={ styles.container}>
       <FlatList
-        data={ListadoEjercicios}
+        data={ListaEjerc}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
@@ -52,7 +73,6 @@ export default ListOfExercisesScreen;
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-  
     marginTop: StatusBar.currentHeight || 0,
   },
   title:{
@@ -72,7 +92,7 @@ const styles = StyleSheet.create({
   item: {
     borderColor:'#000000',
     borderWidth:1,
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
   },

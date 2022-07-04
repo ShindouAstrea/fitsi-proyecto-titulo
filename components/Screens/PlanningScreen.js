@@ -1,10 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
-import { View, Text, Button, StyleSheet,StatusBar,FlatList } from 'react-native';
-import Plans from '../Algorithm/ExercisesPlans';
-import usuario from '../Algorithm/Usuario';
+import React, {useEffect,useState} from 'react';
+import { View, Text, Image, StyleSheet,StatusBar,FlatList } from 'react-native';
 import FlatButton from '../Buttom';
+//Importaciones para utilizar la base datos.
+import {firebaseConfig} from '../../database/firebase';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
 
+import { ImagenFondo } from '../ImagenFondo';
+//----------------------------------------------------------------
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
 
 const Separator = () => < View style = { styleScreen.separator } />;
 function ButtonToNavigate () {
@@ -28,8 +36,8 @@ function ButtonToNavigate () {
 const Item = ({ title,level,description,time}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
-    <Text style={styles.description}>Duracion semanal del plan : {time}</Text>
-    <Text style={styles.description}>Dificultad del plan {level}</Text>
+    <Text style={styles.description}>Duracion semanal del plan: {time}</Text>
+    <Text style={styles.description}>Dificultad del plan: {level}</Text>
     <Text style={styles.description}>{description}</Text>
     <ButtonToNavigate/>
   </View>
@@ -47,25 +55,18 @@ function PlanningScreen({route }) {
   const {mins,secs,sentidoDelGiro}= route.params;
   const minutos = mins;
   const giroIzquierda= JSON.stringify(sentidoDelGiro);
+  console.log(giroIzquierda);
+
+  const [listaPlanes,setPlanes] = useState();
+
+  async function cargardatos () {
+    const Planes1 =  await getDocs(collection(db,'Planes'));
+    setPlanes(Planes1.docs);
+  };
   
-  let Nivel = 0;
- 
-   /**
-    * @Returns {Arryay} Array con la dificultad del plan desde plans
-    */
-  //  if(giroIzquierda){
-  //   Nivel = 5
-  //  }
-  //  else Nivel =0 ;
-  //  else if(algoritmo>=30 && algoritmo< 200){
-  //   Nivel= 2;
-  //   } else if(algoritmo>=45 && algoritmo<60){
-  //     Nivel= 3;
-  //   }  else if(algoritmo>=60 && algoritmo<75){
-  //     Nivel= 3;
-  //   }else if(algoritmo>=75 && algoritmo<90){
-  //   Nivel= 4;
-  //   }
+  useEffect(() => {
+    cargardatos();
+  },[])
    /**
    * 
    * @param {item} Objeto - Objeto que se desea renderizar muchas veces en una lista 
@@ -73,7 +74,7 @@ function PlanningScreen({route }) {
    */
   const renderItem = ({ item }) => (
     
-    <Item title={item.titulo} level ={item.dificultad} time={item.tiempo} description={item.descripcion}
+    <Item title={item.data().titulo} level ={item.data().dificultad} time={item.data().tiempo} description={item.data().descripcion} 
     
     />
   )
@@ -81,7 +82,8 @@ function PlanningScreen({route }) {
     return (
         <View style ={styles.container}>
           <FlatList
-            data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
+            //data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
+            data={listaPlanes}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             extraData={navigation}
@@ -92,6 +94,7 @@ function PlanningScreen({route }) {
 
     );
 };
+
 export default PlanningScreen;
 
  //Estilos que contienen como se deben mostrar los diferentes objetos de la vista.

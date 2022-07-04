@@ -22,6 +22,7 @@ function AuthScreen({navigation}) {
         </View>
       );
 };
+
 export default AuthScreen;
 const styles = StyleSheet.create({
     container:{
