@@ -1,19 +1,10 @@
   import * as React from 'react';
 import { View, Text,Button ,StyleSheet} from 'react-native';
 import FlatButton from '../Buttom';
-import usuario from '../Algorithm/Usuario';
 import Userinfo from '../Userinfo';
 const Separator = () => <View style={styles.separator} />;
 
 function AccountScreen({navigation}) {
-/**
-  const{Nombre,Apellido}= route.params;
-  const NombreU = JSON.stringify(Nombre);
-  const ApellidoU = JSON.stringify(Apellido);
- */
-  
-  
-    //<Text>{NombreU},{ApellidoU}</Text> 
   return (
       <View style={styles.container}>
         
@@ -21,7 +12,6 @@ function AccountScreen({navigation}) {
         <Userinfo correo = "prueba@mail.com"/>
         <FlatButton 
             text="Modificar datos"
-            onPress={()=> navigation.navigate('Details')}
             />
         <Separator/>
          <FlatButton
