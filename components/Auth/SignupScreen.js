@@ -1,18 +1,20 @@
 import React, {useEffect,useState} from 'react';
-import { SafeAreaView, StyleSheet, TextInput,View ,Button,Text,ScrollView} from "react-native";
+import { SafeAreaView, StyleSheet, TextInput,View ,Dimensions,Text,ScrollView} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import usuario from '../Algorithm/Usuario'
 import FlatButton from '../Buttom';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+//Imports Librerias Firebase
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
-
-
+import { getFirestore, collection, getDocs,setDoc, doc } from 'firebase/firestore';
+//------------------------------------------------------------------------------
+const Separator = () => <View style={styles.separator} />;
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const db = getFirestore(app);
-
+const {width} = Dimensions.get('window');
 
 
 
@@ -44,64 +46,120 @@ function SignupScreen({ navigation }) {
   const [Apellido, setApellido] = useState(null); //Variable creada para que el nombre de lo usuarios
   const [Nickname, setNickname] = useState(null); //Variable creada para que el nombre de lo usuarios
   const [Peso, setPeso] = useState(null); // Variable creada para almacenar el peso del usuario.
-  const [Edad1,setEdad]=useState(null);
+  const [Edad,setEdad]=useState(null);
   const [Genero,setGenero] = useState(null);
-  const [Altura1,setAltura] = useState(null);
+  const [Altura,setAltura] = useState(null);
   const [Cuerpo,setCuerpo] = useState(null);
-  const [Silueta1,setSilueta] = useState(null);
-  
+  const [Silueta,setSilueta] = useState(null);
+  const [Correo, setCorreo] = useState(null);
+  const [Password,setPassword] = useState(null);
+
 
   // *********************************Listas************************************************************
   const listado = ['Masculino', 'Femenino', 'No binario'];
-  const Edad = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
-  const Altura = ['1.40', '1.41', '1.42', '1.43', '1.44', '1.45', '1.46', '1.47', '1.48', '1.49', '1.50', '1.60', '1.70', '1.80', '1.90', '2.00'];
+  const Alturas = ['1.40', '1.41', '1.42', '1.43', '1.44', '1.45', '1.46', '1.47', '1.48', '1.49', '1.50', '1.60', '1.70', '1.80', '1.90', '2.00'];
   const Cuerpos = ['Ectomorfo', 'Mesomorfo', 'Endomorfo'];
-  const Silueta = ['Trapecio', 'Triangulo invertido', 'Triangulo', 'Oval', 'Rectangulo'];
-
+  const Siluetas = ['Trapecio', 'Triangulo invertido', 'Triangulo', 'Oval', 'Rectangulo'];
+  const IMC = (Peso)/((parseFloat(Altura))*(parseFloat(Altura)));
   const guardar = async () =>{
-    await setDoc(doc(db, "Prueba", "UsuarioP"), {
-      Nombre ,
-      Apellido,
-      Peso ,
-      Edad1,
-      Genero,
-      Altura1,
-      Cuerpo,
-      Silueta1
-    });
-  }
- 
+    createUserWithEmailAndPassword(auth,Correo, Password)
+    .then((userCredential)=>{
+      console.log("Usuario Creado exitosamente");
+      const user= userCredential.user;
+      alert("Te has creado existosamente tu cuenta");
+      uwu();
+    })
+    .catch((error) =>{
+      alert("Este correo ya ha sido registrado") ;
+    })
+    }
+    const uwu=async() =>{
+      await setDoc(doc(db,"Usuarios", Correo),{
+        Nombre,
+        Correo,
+        Altura,
+        Silueta,
+        Apellido,
+        Nickname,
+        Cuerpo,
+        Peso,
+        Genero,
+        IMC
+      })
+    }
   return (
 
     //inserccion de los datos de registro de los usarios , cuando abren por primera vez el programa por primera vez, en el programa.
-    <View style={{ flex: 1, justifyContent: "center" }}>
+    <View styles={styles.viewContainer}>
       <ScrollView
+        contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
-        alwaysBounceVertical={false}
-        contentContainerStyle={styles.scrollViewContainer}>
-        <Text style={styles.title}> Ingrese Nombre</Text>
+        alwaysBounceVertical={false}>
 
+
+        <Text style={styles.title}> Ingrese Nombre</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setnombre(text)}
           value={Nombre}
-          placeholder="Ingrese Nombre" />
+          placeholder=" Ingrese Nombre" />
+
+
+        <Separator/>
+
+
+        
         <Text style={styles.title}> Ingrese Apellido</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setApellido(text)}
           value={Apellido}
-          placeholder="Ingrese Apellido" />
+          placeholder=" Ingrese Apellido" />
+
+
+          <Separator/>
+
+
         <Text style={styles.title}> Ingrese Apodo</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setNickname(text)}
           value={Nickname}
-          placeholder="Ingrese Apodo" />
+          placeholder=" Ingrese Apodo" />
 
-        <Text style={styles.title}> Selecciona Genero</Text>
-        <SelectDropdown style={styles.Boton}
-          defaultButtonText={'seleccionar sexo'}
+          <Separator/>
+          <Text style={styles.title}> Ingrese Correo</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text)=>setCorreo(text)}
+          value={Correo}
+          placeholder=" Ingrese Correo" />
+
+
+          <Separator/>
+
+        <Text style={styles.title}> Ingrese Contraseña</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text)=>setPassword(text)}
+          value={Password}
+          placeholder=" Ingrese Contraseña" 
+          secureTextEntry={true}
+        />
+          <Separator/>
+
+
+        <Text style={styles.title}>Genero</Text>
+        <SelectDropdown
+          renderDropdownIcon={isOpened => {
+          return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+        }}
+          rowStyle={styles.dropdown1RowStyle}
+          rowTextStyle={styles.dropdown1RowTxtStyle}
+          dropdownIconPosition={'right'}
+          dropdownStyle={styles.dropdown1DropdownStyle}
+          buttonStyle={styles.dropdown1BtnStyle}
+          defaultButtonText={' Seleccionar genero'}
           data={listado}
           onSelect={(selectedItem) => {
             console.log(selectedItem);
@@ -111,21 +169,35 @@ function SignupScreen({ navigation }) {
             return item;
           } } />
 
-        <Text style={styles.title}> Selecciona Edad</Text>
-        <SelectDropdown style={styles.Boton}
-          defaultButtonText={'seleccionar Edad'}
-          data={Edad}
-          onSelect={(selectedItem) => {
-            console.log(selectedItem);
-            setEdad(selectedItem)
-          } }
-          rowTextForSelection={(item) => {
-            return item;
-          } } />
+
+          <Separator/>
+
+
+        <Text style={styles.title}> Ingrese tu Edad</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text)=>setEdad(text)}
+          value={Edad}
+          keyboardType='numeric'
+          placeholder=" 20" />
+
+
+          <Separator/>
+
+
+
         <Text style={styles.title}> Selecciona Altura</Text>
-        <SelectDropdown style={styles.Boton}
-          defaultButtonText={'seleccionar Altura'}
-          data={Altura}
+        <SelectDropdown
+          renderDropdownIcon={isOpened => {
+            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+          }}
+          rowStyle={styles.dropdown1RowStyle}
+          rowTextStyle={styles.dropdown1RowTxtStyle}
+          dropdownIconPosition={'right'}
+          dropdownStyle={styles.dropdown1DropdownStyle}
+          buttonStyle={styles.dropdown1BtnStyle}
+          defaultButtonText={' Seleccionar Altura'}
+          data={Alturas}
           onSelect={(selectedItem) => {
             console.log(selectedItem);
             setAltura(selectedItem)
@@ -134,17 +206,31 @@ function SignupScreen({ navigation }) {
             return item;
           } } />
 
+
+          <Separator/>
+
         <Text style={styles.title}> Ingrese Peso</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setPeso(text)}
           value={Peso}
           keyboardType='numeric'
-          placeholder="Ingrese Peso" />
+          placeholder=" Ingrese Peso" />
+
+
+        <Separator/>
 
         <Text style={styles.title}> Selecciona Tipo de cuerpo</Text>
-        <SelectDropdown style={styles.Boton}
-          defaultButtonText={'seleccionar Cuerpo'}
+        <SelectDropdown
+          renderDropdownIcon={isOpened => {
+            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+          }}
+            rowStyle={styles.dropdown1RowStyle}
+            rowTextStyle={styles.dropdown1RowTxtStyle}
+            dropdownIconPosition={'right'}
+            dropdownStyle={styles.dropdown1DropdownStyle}
+            buttonStyle={styles.dropdown1BtnStyle}
+          defaultButtonText={'Seleccionar Cuerpo'}
           data={Cuerpos}
           buttonTextAfterSelection={(selectedItem) => {
             return selectedItem;
@@ -153,11 +239,20 @@ function SignupScreen({ navigation }) {
             console.log(selectedItem);
             setCuerpo(selectedItem)
           } } />
+          <Separator/>
 
         <Text style={styles.title}> Selecciona Tipo de Silueta</Text>
-        <SelectDropdown style={styles.Boton}
-          defaultButtonText={'seleccionar Silueta'}
-          data={Silueta}
+        <SelectDropdown 
+          renderDropdownIcon={isOpened => {
+            return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+          }}
+            rowStyle={styles.dropdown1RowStyle}
+            rowTextStyle={styles.dropdown1RowTxtStyle}
+            dropdownIconPosition={'right'}
+            dropdownStyle={styles.dropdown1DropdownStyle}
+            buttonStyle={styles.dropdown1BtnStyle}
+          defaultButtonText={'Seleccionar Silueta'}
+          data={Siluetas}
           onSelect={(selectedItem) => {
             console.log(selectedItem);
             setSilueta(selectedItem)
@@ -165,12 +260,15 @@ function SignupScreen({ navigation }) {
           rowTextForSelection={(item) => {
             return item;
           } } />
-
-          <FlatButton
-          text='siguente'
-          onPress={() => {
-            guardar();
-            navigation.navigate('Account', { Nombre: { Nombre }, Apellido: { Apellido }, });}} />
+          <Separator/> 
+          <SafeAreaView style={styles.boton}>
+            <FlatButton
+            text='Crear mi cuenta'
+            onPress={() => {
+              guardar();
+              navigation.navigate('Account')}} />
+          </SafeAreaView>
+          
       </ScrollView>
       
     </View>
@@ -185,16 +283,58 @@ function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   input: {
     height: 40,
+    width: 300,
     margin: 12,
-    borderWidth: 2,
-    padding: 10,
+    borderWidth: 1,
   },
   title: {
     textAlign: 'center',
     marginVertical: 8,
+    fontStyle: 'italic',
+    fontSize:18,
+    fontWeight: 'normal',
+
   },
-  Boton: {
-    borderWidth: 0,
+  dropdownContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+boton:
+{
+  padding:'10%',
+  width
+},
+separator: {
+  marginVertical: 8,
+},
+dropdown1BtnStyle: {
+  flex: 1,
+  alignItems:'center',
+  height: 50,
+  width:300,
+  backgroundColor: '#FFF',
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: '#444',
+},
+dropdown1DropdownStyle: {
+  backgroundColor: '#EFEFEF'
+},
+dropdown1RowStyle: {
+  backgroundColor: '#EFEFEF', 
+  borderBottomColor: '#C5C5C5'
+},
+dropdown1RowTxtStyle: {
+  color: '#444',
+  textAlign: 'left'
+},
+viewContainer: {flex: 1, width, backgroundColor: '#FFF'},
+scrollViewContainer: {
+  flexGrow: 1,
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingBottom: '20%',
 },
 });
 
