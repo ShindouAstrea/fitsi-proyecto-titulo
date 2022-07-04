@@ -51,10 +51,11 @@ function SignupScreen({ navigation }) {
       console.log("Usuario Creado exitosamente");
       const user= userCredential.user;
       alert("Te has creado existosamente tu cuenta");
+      signIn({Correo,Password})
       uwu();
     })
     .catch((error) =>{
-      alert("Este correo ya ha sido registrado") ;
+      alert("Por favor complete todo los campos y verifique que el correo ya no se encuentre registrado") ;
     })
     }
     const uwu=async() =>{
@@ -250,7 +251,7 @@ function SignupScreen({ navigation }) {
             text='Crear mi cuenta'
             onPress={() => {
               guardar();
-              signIn({Correo,Password})} }/>
+              } }/>
           </SafeAreaView>
           
       </ScrollView>

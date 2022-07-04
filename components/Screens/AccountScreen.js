@@ -10,6 +10,7 @@ import { AuthContext } from '../../App';
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db= getFirestore(app);
+import ModalCambios from '../ModalCambios';
 const Separator = () => <View style={styles.separator} />;
 
     /**
@@ -38,6 +39,7 @@ let correoUser ;
 
 function AccountScreen({navigation}) {
   const{signOut} = React.useContext(AuthContext) ;
+  const [modalVisible, setModalVisible] = React.useState(false);
   const user = auth.currentUser;
   if(user){
     correoUser=user.email;
@@ -76,6 +78,7 @@ function AccountScreen({navigation}) {
       <Separator/>
         <FlatButton 
             text="Modificar datos"
+            onPress={() => setModalVisible(true)}
             />
         <Separator/>
          <FlatButton
@@ -87,6 +90,7 @@ function AccountScreen({navigation}) {
             text="Cerrar Sesion"
             onPress={signOut}
         />
+        <ModalCambios modalVisible={modalVisible} setModalVisible={setModalVisible}/>
       </View>
     );
 };
