@@ -22,6 +22,7 @@ import Video from './components/Algorithm/Video';
 import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
 import ListOfExercisesScreen from './components/Screens/ListOfExcercisesScreen';
+import UserData from './components/Auth/UserData';
 
 
 
@@ -69,6 +70,7 @@ const Stack = createNativeStackNavigator();
           <Stack.Screen name="Accelerometer" component={Accelerometer}/>
           <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Registro' }}/>
           <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
+          <Stack.Screen name="Userinfo" component={UserData} options={{title: 'Perfil:Usuario' }}/>
           <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: ' Detalles' }}/>
           <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Planes de ejercicio' }}/>
           <Stack.Screen name="Algorithm" component={AlgorithmIA}options={{title: 'Test' }}/>

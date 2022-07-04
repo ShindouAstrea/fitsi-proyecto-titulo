@@ -16,17 +16,21 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const {width} = Dimensions.get('window');
 
+// const ver1 = async() =>{
 
+//   const Usuarios = await getDocs(collection(db,'Prueba'));
+//   console.log(Usuarios.docs[1].data().Nombre)
+// };
 
-const ver = async () =>{
-  const querySnapshot = await getDocs(collection(db, "Ejercicio"));
-  querySnapshot.forEach((doc) => {
-  //console.log(`${doc.id} => ${doc.data()}`); Forma de mostrar la coleccion
-  //console.log(doc.data()); Data de los campos
-  console.log(`${doc.id} => ${doc.data()}`)
+// const ver = async () =>{
+//   const querySnapshot = await getDocs(collection(db, "Prueba"));
+//   querySnapshot.forEach((doc) => {
+//   //console.log(`${doc.id} => ${doc.data().Apellido}`); //Forma de mostrar la coleccion
+//   //console.log(doc.data("Usuario").Nombre); //Data de los campos
+//   //console.log(`${doc.id} => ${doc.data()}`)
 
-});
-};
+// });
+// };
 
 
 const lista = () => {

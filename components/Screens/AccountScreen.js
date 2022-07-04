@@ -1,13 +1,15 @@
   import * as React from 'react';
 import { View, Text,Button ,StyleSheet} from 'react-native';
 import FlatButton from '../Buttom';
+import Userinfo from '../Userinfo';
 const Separator = () => <View style={styles.separator} />;
+
 function AccountScreen({navigation}) {
   return (
       <View style={styles.container}>
         
-
         <Separator/>
+        <Userinfo correo = "prueba@mail.com"/>
         <FlatButton 
             text="Modificar datos"
             />
@@ -24,7 +26,6 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     justifyContent: 'center',
     justifyItems: 'center',
     alignContent: 'center',
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   item: {
     borderColor:'#000000',
     borderWidth:1,
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
   },
