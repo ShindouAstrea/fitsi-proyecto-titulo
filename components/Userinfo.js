@@ -33,12 +33,12 @@ const Item = ({Nickname,Edad,Peso,id}) =>(
   );
 
 
-function Userinfo(correo){
+function Userinfo({correo}){
     const[Listausuario,setUsuario] = useState();
 
 async function cargardatos () {
-  const Usuario =  await getDocs(collection(db,'Usuario'));
-  console.log(Usuario.docs);
+  const Usuario =  await getDocs(collection(db,'Usuarios'));
+  console.log(Usuario.doc);
   setUsuario(Usuario.docs);
 };
 
@@ -46,7 +46,7 @@ useEffect(() => {
   cargardatos();
 },[])
 const renderItem = ({ item }) => (
-    <Item Nickname={item.data().Nickname} Edad={item.data().Edad} Peso={item.data().Peso} id={item.id} />
+    <Item Nickname={item.data().Nickname} Edad={item.data().Edad} Peso={item.data().Peso} id={item.data().id} />
   );
       return ( 
       <View style={ styles.container}>

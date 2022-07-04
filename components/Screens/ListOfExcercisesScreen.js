@@ -2,8 +2,7 @@
 import { View, Text,Button,Image,StyleSheet,StatusBar,FlatList} from 'react-native';
 import React,{ useState, useEffect} from 'react';
 import FlatButton from '../Buttom';
-import Video from '../Algorithm/Video';
-import ListadoEjercicios from '../Algorithm/ListadoEjercicios';
+import Video from '../Video';
 import { useNavigation } from '@react-navigation/native';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
@@ -32,7 +31,7 @@ const Item = ({Nombre,Repeticiones,Series ,link,Dificultad,Tiempo,id}) =>(
     <Text style={styles.description}>Nivel :  {Dificultad}</Text>
     <Text style={styles.description}>Cantidad de Series: {Series}</Text>
     <Text style={styles.description}>Cantidad de Repeticiones: {Repeticiones}</Text>
-    <Text style={styles.description}> Duración {Tiempo} minutos</Text>
+    <Text style={styles.description}> Duración: {Tiempo} minutos</Text>
     <ButtonToNavigate id={id}/>
   </View>
 );

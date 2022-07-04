@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import  * as React from 'react';
 import { SafeAreaView, StyleSheet, TextInput,View ,Dimensions,Text,ScrollView} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import FlatButton from '../Buttom';
@@ -7,35 +7,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
+import { AuthContext } from '../../App';
 import { getFirestore, collection, getDocs,setDoc, doc } from 'firebase/firestore';
 //------------------------------------------------------------------------------
 const Separator = () => <View style={styles.separator} />;
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
 const db = getFirestore(app);
 const {width} = Dimensions.get('window');
-
-// const ver1 = async() =>{
-
-//   const Usuarios = await getDocs(collection(db,'Prueba'));
-//   console.log(Usuarios.docs[1].data().Nombre)
-// };
-
-// const ver = async () =>{
-//   const querySnapshot = await getDocs(collection(db, "Prueba"));
-//   querySnapshot.forEach((doc) => {
-//   //console.log(`${doc.id} => ${doc.data().Apellido}`); //Forma de mostrar la coleccion
-//   //console.log(doc.data("Usuario").Nombre); //Data de los campos
-//   //console.log(`${doc.id} => ${doc.data()}`)
-
-// });
-// };
-
-
-const lista = () => {
-  console.log(obtener(db))
-};
 
   /** 
      * Funcion para crear la interfaz de registro , donde se guardaran los distintos datos del usuario talez como
@@ -46,17 +25,18 @@ const lista = () => {
      */
 function SignupScreen({ navigation }) {
   // En la primera interfaz de registro se almacen los datos de nombre - apellido y un apodo a eleccion del usuario.
-  const [Nombre, setnombre] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Apellido, setApellido] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Nickname, setNickname] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [Peso, setPeso] = useState(null); // Variable creada para almacenar el peso del usuario.
-  const [Edad,setEdad]=useState(null);
-  const [Genero,setGenero] = useState(null);
-  const [Altura,setAltura] = useState(null);
-  const [Cuerpo,setCuerpo] = useState(null);
-  const [Silueta,setSilueta] = useState(null);
-  const [Correo, setCorreo] = useState(null);
-  const [Password,setPassword] = useState(null);
+  const [Nombre, setnombre] = React.useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Apellido, setApellido] = React.useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Nickname, setNickname] = React.useState(null); //Variable creada para que el nombre de lo usuarios
+  const [Peso, setPeso] = React.useState(null); // Variable creada para almacenar el peso del usuario.
+  const [Edad,setEdad]=React.useState(null);
+  const [Genero,setGenero] = React.useState(null);
+  const [Altura,setAltura] = React.useState(null);
+  const [Cuerpo,setCuerpo] = React.useState(null);
+  const [Silueta,setSilueta] = React.useState(null);
+  const [Correo, setCorreo] = React.useState(null);
+  const [Password,setPassword] = React.useState(null);
+  const { signIn } = React.useContext(AuthContext);
 
 
   // *********************************Listas************************************************************
@@ -270,7 +250,7 @@ function SignupScreen({ navigation }) {
             text='Crear mi cuenta'
             onPress={() => {
               guardar();
-              navigation.navigate('Account')}} />
+              signIn({Correo,Password})} }/>
           </SafeAreaView>
           
       </ScrollView>

@@ -1,19 +1,23 @@
-import  React, {useState} from 'react';
+import  * as React from 'react';
 import {View, Button,Text,TextInput,StyleSheet,StatusBar,} from 'react-native';
 //Imports Librerias Firebase
 import {getAuth, signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
+import { AuthContext } from '../../App';
 //----------------------------------------------------------------
 import FlatButton from '../Buttom';
  // Constantes para conectar con la base de datos de firebase
  const app  = initializeApp(firebaseConfig);
  const auth = getAuth(app);
+ 
  //----------------------------------------------------------------
 const Separator = () => <View style={styles.separator} />;
 function LoginScreen({navigation}) {
-  const [mail, setMail] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [password, setPass] = useState(null);
+  const [mail, setMail] = React.useState(null); //Variable creada para que el nombre de lo usuarios
+  const [password, setPass] = React.useState(null);
+  const { signIn } = React.useContext(AuthContext);
+
   const recuperarPass=()=>{
     sendPasswordResetEmail(auth, mail);
   }
@@ -27,7 +31,7 @@ function LoginScreen({navigation}) {
       alert("Ya existe una cuenta con este usuario registrado")
     })
    }
-  
+
     return (
       <View style={styles.container}>
         <Text styles={styles.title}> Ingrese Correo registrado</Text>
@@ -49,7 +53,7 @@ function LoginScreen({navigation}) {
               text="Iniciar Sesión "
               onPress={() => {
                 iniciarSesion();
-                navigation.navigate('Account')}
+                signIn({mail,password})}
               }
           />
            <Separator/>
@@ -58,9 +62,7 @@ function LoginScreen({navigation}) {
               onPress={() => {
                 recuperarPass();
                 alert("Por favor revisa tu correo (puede estar en carpeta SPAM)");
-              }}
-
-              
+              }}        
           />
         </View>
       );
