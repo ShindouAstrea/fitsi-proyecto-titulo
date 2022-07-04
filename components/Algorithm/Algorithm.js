@@ -61,8 +61,15 @@ function AlgorithmIA ({navigation}) {
  * z gyro -> Invert phone (giro)
  *  
 */
+function triangulacion (x, y, z){
+  let altura = y ;
+  let catetoA = z;
+  let hipotenusa = x ;
+  let angulo ; 
+}
 const [Nivel,setNivel]=useState();
 const [isLeft,setPos]= useState(null);
+const [valorGiro,setGiro]= useState(null);
 const [data, setData] = useState({
   giroX: 0,
   giroY: 0,
@@ -101,12 +108,11 @@ const _unsubscribe = () => {
 const testForPlans  = () => {
   _subscribe();
   _mediumUpdate();
-  if(giroZ>0){
-    setPos(false);
-    return _unsubscribe();
-  }
-  else if(giroZ<0){setPos(true); return _unsubscribe();}
-};
+  useEffect(() => {
+    console.log({giroX,giroY,giroZ});
+    _unsubscribe();
+  },[]);
+}
 const { giroX, giroY, giroZ } = data;
 
 
@@ -134,7 +140,6 @@ const { giroX, giroY, giroZ } = data;
       <FlatButton 
         text = "Crear plan"
         onPress={() => {
-          testForPlans();
           navigation.navigate('Planning',{
           mins:{mins},secs:{secs},sentidoDelGiro:{isLeft},
         },
@@ -151,7 +156,7 @@ export default AlgorithmIA;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+
     justifyContent: 'center',
     justifyItems: 'center',
     alignContent: 'center',
@@ -180,4 +185,4 @@ const styles = StyleSheet.create({
     marginVertical: 8,
 
   },
-});
+})

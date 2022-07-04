@@ -1,33 +1,38 @@
-import  React, {useState} from 'react';
+import  * as React from 'react';
 import {View, Button,Text,TextInput,StyleSheet,StatusBar,} from 'react-native';
 //Imports Librerias Firebase
 import {getAuth, signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
+import { AuthContext } from '../../App';
+import MyModal from '../Modal';
 //----------------------------------------------------------------
 import FlatButton from '../Buttom';
+import { set } from 'firebase/database';
  // Constantes para conectar con la base de datos de firebase
  const app  = initializeApp(firebaseConfig);
  const auth = getAuth(app);
+ 
  //----------------------------------------------------------------
 const Separator = () => <View style={styles.separator} />;
 function LoginScreen({navigation}) {
-  const [mail, setMail] = useState(null); //Variable creada para que el nombre de lo usuarios
-  const [password, setPass] = useState(null);
-  const recuperarPass=()=>{
-    sendPasswordResetEmail(auth, mail);
-  }
+  const [mail, setMail] = React.useState(null); //Variable creada para que el nombre de lo usuarios
+  const [password, setPass] = React.useState(null);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const { signIn } = React.useContext(AuthContext);
+
   const iniciarSesion=()=>{
     signInWithEmailAndPassword(auth,mail,password)
     .then((userCredential)=>{
       console.log("sesion iniciada");
       const user = userCredential.user ;
+      signIn({mail,password})
     })
     .catch(error =>{
-      alert("Ya existe una cuenta con este usuario registrado")
+      alert("Verifique que el correo ya no este registrado y que los campos esten ocupados")
     })
    }
-  
+
     return (
       <View style={styles.container}>
         <Text styles={styles.title}> Ingrese Correo registrado</Text>
@@ -49,19 +54,15 @@ function LoginScreen({navigation}) {
               text="Iniciar Sesión "
               onPress={() => {
                 iniciarSesion();
-                navigation.navigate('Account')}
+              }
               }
           />
            <Separator/>
           <FlatButton
               text="Olvidé Mi contraseña "
-              onPress={() => {
-                recuperarPass();
-                alert("Por favor revisa tu correo (puede estar en carpeta SPAM)");
-              }}
-
-              
+              onPress={() => setModalVisible(true)}        
           />
+          <MyModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         </View>
       );
 };
