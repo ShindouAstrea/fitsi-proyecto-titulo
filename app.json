@@ -22,6 +22,7 @@
     },
     "android": {
       "package": "com.fitsiproyectotitulo",
+      "versionCode":"2.0",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"

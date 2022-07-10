@@ -1,7 +1,6 @@
   import * as React from 'react';
 import { View, Text,FlatList ,StyleSheet} from 'react-native';
 import FlatButton from '../Buttom';
-import Userinfo from '../Userinfo';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../database/firebase';
 import { getAuth } from 'firebase/auth';
@@ -10,6 +9,7 @@ import { AuthContext } from '../../App';
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db= getFirestore(app);
+import ModalCambios from '../ModalCambios';
 const Separator = () => <View style={styles.separator} />;
 
     /**
@@ -38,6 +38,7 @@ let correoUser ;
 
 function AccountScreen({navigation}) {
   const{signOut} = React.useContext(AuthContext) ;
+  const [modalVisible, setModalVisible] = React.useState(false);
   const user = auth.currentUser;
   if(user){
     correoUser=user.email;
@@ -63,7 +64,7 @@ function AccountScreen({navigation}) {
   )
   return (
 
-      <View style={styles.container}>
+      <View style={styles.centeredView}>
         <Separator/>
       <Text style={styles.title}>Mis datos </Text>
       <FlatList
@@ -76,6 +77,7 @@ function AccountScreen({navigation}) {
       <Separator/>
         <FlatButton 
             text="Modificar datos"
+            onPress={() => setModalVisible(true)}
             />
         <Separator/>
          <FlatButton
@@ -87,18 +89,18 @@ function AccountScreen({navigation}) {
             text="Cerrar Sesion"
             onPress={signOut}
         />
+        <ModalCambios modalVisible={modalVisible} setModalVisible={setModalVisible}/>
       </View>
     );
 };
 export default AccountScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    justifyItems: 'center',
-    alignContent: 'center',
-    marginVertical: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
   },
   button:{
     borderRadius:10 
