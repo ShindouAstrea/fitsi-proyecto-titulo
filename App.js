@@ -9,7 +9,6 @@ import SignupScreen from './components/Auth/SignupScreen';
 import AuthScreen from './components/Auth/AuthScreen';
 import LoginScreen from './components/Auth/LoginScreen';
 
-import BottomNav from './components/Nav/BottomNav';
 
 //JS que contienen las vistas de prueba de sensores
 import Accelerometer from './components/Sensors/Accelerometer';
@@ -24,62 +23,6 @@ import AlgorithmIA from './components/Algorithm/Algorithm';
 import ListOfExercisesScreen from './components/Screens/ListOfExcercisesScreen';
 import UserData from './components/Auth/UserData';
 
-
-
-// //Se instancian las "pantallas" que tendra la app
-// const Stack = createNativeStackNavigator();
-// const Navigator =()=>{
-//   const isLoggedIn = false ;
-//     if(!isLoggedIn) {
-//       return (
-//           <Stack.Navigator 
-//             initialRouteName="Auth"
-//             screenOptions={{
-//               headerShown: true,
-//               headerStyle: {
-//                 backgroundColor: 'black',
-//                 textAlign: 'center',
-//                 justifyContent: 'center',
-//               },
-//               headerTintColor: 'white',
-//               headerTitleStyle: {
-//                 textAlign:'center',
-//                 justifyContent: 'center',
-//                 alignContent: 'center',
-//                 fontWeight: 'normal',
-//                 backgroundColor: '#4cbdfd',
-//               },
-//             }}
-//           >
-//             <Stack.Screen name="Auth" component={AuthScreen} options={{title: 'Inicio' }}/>
-//             <Stack.Screen name="Login" component={LoginScreen} options={{title: 'Inicio de sesión' }}/>
-//             <Stack.Screen name="Signup" component={SignupScreen} options={{title: 'Registro' }}/>
-//           </Stack.Navigator>
-//       );
-//     }
-//     return(
-//       <Stack.Navigator>
-//         <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' }}/>
-//         <Stack.Screen name="Userinfo" component={UserData} options={{title: 'Perfil:Usuario' }}/>
-//         <Stack.Screen name="Gyroscope" component={Gyroscope} />
-//         <Stack.Screen name="Accelerometer" component={Accelerometer}/>
-//         <Stack.Screen name="Planning" component={PlanningScreen} options={{title: 'Planes de ejercicio' }}/>
-//         <Stack.Screen name="Algorithm" component={AlgorithmIA}options={{title: 'Test' }}/>
-//         <Stack.Screen name="ListExercises" component={ListOfExercisesScreen} options={{title: 'Listado de ejercicios'}}/>
-//         <Stack.Screen name="Video" component={Video}/>
-//         <Stack.Screen name="Ejemplo" component={Ejemplo}/>
-//         <Stack.Screen name="Details" component={DetailExerciseScreen} options={{title: ' Detalles' }}/>
-//       </Stack.Navigator>
-//     );
-// }
-//   const App = () => {
-//     return(
-//       <NavigationContainer>
-//         <Navigator/>
-//       </NavigationContainer>
-//     )
-    
-// }
 const Stack = createNativeStackNavigator();
 export const AuthContext = React.createContext();
 function App({navigation}){
@@ -221,21 +164,6 @@ function App({navigation}){
             // User is signed in
             <>
               <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' ,
-                  headerShown:true,
-                  headerStyle: {
-                    backgroundColor: 'black',
-                    textAlign: 'center',
-                    justifyContent: 'center'
-                    },
-                    headerTintColor: 'white',
-                    headerTitleStyle: {
-                      textAlign:'center',
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                      fontWeight: 'normal',
-                      backgroundColor: '#4cbdfd',
-                    },}}/>
-              <Stack.Screen name="Userinfo" component={UserData} options={{title: 'Perfil:Usuario' ,
                   headerShown:true,
                   headerStyle: {
                     backgroundColor: 'black',
