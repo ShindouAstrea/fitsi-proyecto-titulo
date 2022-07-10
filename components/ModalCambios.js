@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const user = auth.currentUser;
-const id = user.email ;
+
 function ModalCambios({modalVisible,setModalVisible}){
     const[Nombre,setNombre]=useState();
     const recuperarPass=()=>{

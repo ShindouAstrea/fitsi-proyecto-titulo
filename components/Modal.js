@@ -8,7 +8,6 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const user = auth.currentUser ;
-const id = user.email ;
 
 function MyModal({modalVisible,setModalVisible}){
     const recuperarPass=()=>{
@@ -16,7 +15,6 @@ function MyModal({modalVisible,setModalVisible}){
       }
     const[Mail, setMail] =useState();
   return (
-    <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -32,7 +30,7 @@ function MyModal({modalVisible,setModalVisible}){
           style={styles.input}
           onChangeText={(text)=>setMail(text)}
           value={Mail}
-          placeholder=" corre@gmail.com" />
+          placeholder=" correo@gmail.com" />
 
 
  
@@ -46,11 +44,9 @@ function MyModal({modalVisible,setModalVisible}){
                     alert("Correo enviado, por favor revise carpeta spam");
                     setModalVisible(!modalVisible)}}
               />
-              
           </View>
         </View>
       </Modal>
-    </View>
   );
 };
 export default MyModal;
