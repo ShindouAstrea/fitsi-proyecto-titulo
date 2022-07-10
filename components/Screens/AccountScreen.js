@@ -1,7 +1,6 @@
   import * as React from 'react';
 import { View, Text,FlatList ,StyleSheet} from 'react-native';
 import FlatButton from '../Buttom';
-import Userinfo from '../Userinfo';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../database/firebase';
 import { getAuth } from 'firebase/auth';
@@ -65,7 +64,7 @@ function AccountScreen({navigation}) {
   )
   return (
 
-      <View style={styles.container}>
+      <View style={styles.centeredView}>
         <Separator/>
       <Text style={styles.title}>Mis datos </Text>
       <FlatList
@@ -97,12 +96,11 @@ function AccountScreen({navigation}) {
 export default AccountScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    justifyItems: 'center',
-    alignContent: 'center',
-    marginVertical: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
   },
   button:{
     borderRadius:10 

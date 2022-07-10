@@ -8,6 +8,7 @@ import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
 import { AuthContext } from '../../App';
+
 import { getFirestore, collection, getDocs,setDoc, doc } from 'firebase/firestore';
 //------------------------------------------------------------------------------
 const Separator = () => <View style={styles.separator} />;
@@ -61,6 +62,7 @@ function SignupScreen({ navigation }) {
     const uwu=async() =>{
       await setDoc(doc(db,"Usuarios", Correo),{
         Nombre,
+        Edad,
         Correo,
         Altura,
         Silueta,
