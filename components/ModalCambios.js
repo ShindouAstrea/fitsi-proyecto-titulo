@@ -4,16 +4,25 @@ import FlatButton from "./Buttom";
 import {getAuth, sendPasswordResetEmail} from 'firebase/auth';
 import { firebaseConfig } from "../database/firebase";
 import { initializeApp } from "firebase/app";
+import { updateDoc } from "firebase/firestore";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const user = auth.currentUser;
 
+
+  const updateInfo=async({apodo}) =>{
+    await updateDoc(doc(db,"Usuarios", user.email),{
+      'Nickname':{apodo}
+    }      
+    )
+}
+/**
+ * It takes the email address from the input field, and sends a password reset email to that address.
+ * @returns a view.
+ */
 function ModalCambios({modalVisible,setModalVisible}){
-    const[Nombre,setNombre]=useState();
-    const recuperarPass=()=>{
-        sendPasswordResetEmail(auth, Mail);
-      }
-    const[Mail, setMail] =useState();
+    const[apodo,setApodo]=useState();
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -29,9 +38,9 @@ function ModalCambios({modalVisible,setModalVisible}){
           <Text style={styles.title}> Ingrese Nombre</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(text)=>setNombre(text)}
-          value={Nombre}
-          placeholder="Ingrese nuevo nombre" />
+          onChangeText={(text)=>setApodo(text)}
+          value={apodo}
+          placeholder="Ingrese su apodo" />
 
  
               <FlatButton
@@ -40,8 +49,8 @@ function ModalCambios({modalVisible,setModalVisible}){
               />
               <FlatButton
                 text = "Actualizar Informacion"
-                onPress={() => { updatedeinfo();
-                    alert("Actualizado con extisto");
+                onPress={() => { updateInfo({apodo});
+                    alert("Actualizado con exito");
                     setModalVisible(!modalVisible)}}
               />
               

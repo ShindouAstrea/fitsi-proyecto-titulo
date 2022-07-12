@@ -6,6 +6,7 @@ import { firebaseConfig } from "../database/firebase";
 import { initializeApp } from "firebase/app";
 const app = initializeApp(firebaseConfig);
 
+const Separator = () => < View style = { styles.separator } />;
 const auth = getAuth(app);
 const user = auth.currentUser ;
 
@@ -16,7 +17,7 @@ function MyModal({modalVisible,setModalVisible}){
     const[Mail, setMail] =useState();
   return (
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -38,8 +39,9 @@ function MyModal({modalVisible,setModalVisible}){
                 text = "Cancelar"
                 onPress={() => setModalVisible(!modalVisible)}
               />
+              <Separator/>
               <FlatButton
-                text = "Resetear correo"
+                text = "Reestablecer contraseña"
                 onPress={() => { recuperarPass();
                     alert("Correo enviado, por favor revise carpeta spam");
                     setModalVisible(!modalVisible)}}
@@ -55,13 +57,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
+    
   },
+  separator: {
+    marginVertical: 8,
+
+},
   modalView: {
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
