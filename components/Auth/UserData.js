@@ -41,7 +41,6 @@ function UserData(correo){
 
 async function cargardatos () {
   const Usuario =  await getDocs(collection(db,'Usuario'));
-  console.log(Usuario.docs);
   setUsuario(Usuario.docs);
 };
 
