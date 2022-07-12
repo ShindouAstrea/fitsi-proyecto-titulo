@@ -49,7 +49,6 @@ function SignupScreen({ navigation }) {
   const guardar = async () =>{
     createUserWithEmailAndPassword(auth,Correo, Password)
     .then((userCredential)=>{
-      console.log("Usuario Creado exitosamente");
       const user= userCredential.user;
       alert("Te has creado existosamente tu cuenta");
       signIn({Correo,Password})
@@ -84,7 +83,7 @@ function SignupScreen({ navigation }) {
         alwaysBounceVertical={false}>
 
 
-        <Text style={styles.title}> Ingrese Nombre</Text>
+        <Text style={{color:'white',marginLeft:12}}>Nombre</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setnombre(text)}
@@ -96,7 +95,7 @@ function SignupScreen({ navigation }) {
 
 
         
-        <Text style={styles.title}> Ingrese Apellido</Text>
+        <Text style={{color:'white',marginLeft:12}}>Apellido</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setApellido(text)}
@@ -107,7 +106,7 @@ function SignupScreen({ navigation }) {
           <Separator/>
 
 
-        <Text style={styles.title}> Ingrese Apodo</Text>
+          <Text style={{color:'white',marginLeft:12}}>Apodo</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setNickname(text)}
@@ -115,7 +114,7 @@ function SignupScreen({ navigation }) {
           placeholder=" Ingrese Apodo" />
 
           <Separator/>
-          <Text style={styles.title}> Ingrese Correo</Text>
+        <Text style={{color:'white',marginLeft:12}}>Correo</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setCorreo(text)}
@@ -125,7 +124,7 @@ function SignupScreen({ navigation }) {
 
           <Separator/>
 
-        <Text style={styles.title}> Ingrese Contraseña</Text>
+        <Text style={{color:'white',marginLeft:12}}>Contraseña</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setPassword(text)}
@@ -136,7 +135,7 @@ function SignupScreen({ navigation }) {
           <Separator/>
 
 
-        <Text style={styles.title}>Genero</Text>
+          <Text style={{color:'white',marginLeft:12}}>Género</Text>
         <SelectDropdown
           renderDropdownIcon={isOpened => {
           return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
@@ -146,10 +145,9 @@ function SignupScreen({ navigation }) {
           dropdownIconPosition={'right'}
           dropdownStyle={styles.dropdown1DropdownStyle}
           buttonStyle={styles.dropdown1BtnStyle}
-          defaultButtonText={' Seleccionar genero'}
+          defaultButtonText={' Seleccionar género'}
           data={listado}
           onSelect={(selectedItem) => {
-            console.log(selectedItem);
             setGenero(selectedItem)
           } }
           rowTextForSelection={(item) => {
@@ -160,7 +158,7 @@ function SignupScreen({ navigation }) {
           <Separator/>
 
 
-        <Text style={styles.title}> Ingrese tu Edad</Text>
+          <Text style={{color:'white',marginLeft:12}}>Edad</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setEdad(text)}
@@ -173,7 +171,7 @@ function SignupScreen({ navigation }) {
 
 
 
-        <Text style={styles.title}> Selecciona Altura</Text>
+          <Text style={{color:'white',marginLeft:12}}>Altura</Text>
         <SelectDropdown
           renderDropdownIcon={isOpened => {
             return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
@@ -186,7 +184,7 @@ function SignupScreen({ navigation }) {
           defaultButtonText={' Seleccionar Altura'}
           data={Alturas}
           onSelect={(selectedItem) => {
-            console.log(selectedItem);
+
             setAltura(selectedItem)
           } }
           rowTextForSelection={(item) => {
@@ -196,7 +194,7 @@ function SignupScreen({ navigation }) {
 
           <Separator/>
 
-        <Text style={styles.title}> Ingrese Peso</Text>
+          <Text style={{color:'white',marginLeft:12}}>Peso en KG</Text>
         <TextInput
           style={styles.input}
           onChangeText={(text)=>setPeso(text)}
@@ -207,7 +205,7 @@ function SignupScreen({ navigation }) {
 
         <Separator/>
 
-        <Text style={styles.title}> Selecciona Tipo de cuerpo</Text>
+        <Text style={{color:'white',marginLeft:12}}>Tipo de cuerpo</Text>
         <SelectDropdown
           renderDropdownIcon={isOpened => {
             return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
@@ -223,12 +221,12 @@ function SignupScreen({ navigation }) {
             return selectedItem;
           } }
           onSelect={(selectedItem) => {
-            console.log(selectedItem);
+
             setCuerpo(selectedItem)
           } } />
           <Separator/>
 
-        <Text style={styles.title}> Selecciona Tipo de Silueta</Text>
+        <Text style={{color:'white'}}>Tipo de Silueta</Text>
         <SelectDropdown 
           renderDropdownIcon={isOpened => {
             return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
@@ -241,7 +239,6 @@ function SignupScreen({ navigation }) {
           defaultButtonText={'Seleccionar Silueta'}
           data={Siluetas}
           onSelect={(selectedItem) => {
-            console.log(selectedItem);
             setSilueta(selectedItem)
           } }
           rowTextForSelection={(item) => {
@@ -269,10 +266,13 @@ function SignupScreen({ navigation }) {
  */
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    width: 300,
+    height: 50,
     margin: 12,
+    backgroundColor: 'white',
+    borderRadius: 15,
     borderWidth: 1,
+    padding: 10,
+    width:300,
   },
   title: {
     textAlign: 'center',
@@ -316,12 +316,14 @@ dropdown1RowTxtStyle: {
   color: '#444',
   textAlign: 'left'
 },
-viewContainer: {flex: 1, width, backgroundColor: '#FFF'},
+viewContainer: {flex: 1, width, backgroundColor: 'black'},
 scrollViewContainer: {
   flexGrow: 1,
   justifyContent: 'space-between',
   alignItems: 'center',
+  backgroundColor: 'black',
   paddingBottom: '20%',
+  paddingTop: '20%',
 },
 });
 
