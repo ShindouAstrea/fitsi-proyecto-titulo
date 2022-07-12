@@ -1,5 +1,5 @@
   import * as React from 'react';
-import { View, Text,FlatList ,StyleSheet,Dimensions,TouchableHighlight} from 'react-native';
+import { View, Text,FlatList ,StyleSheet,Dimensions,Image,TouchableHighlight} from 'react-native';
 import FlatButton from '../Buttom';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../database/firebase';
@@ -77,8 +77,7 @@ function AccountScreen({navigation}) {
 
       <View style={styles.centeredView}>
       <View style={{flexDirection: 'row',alignItems: 'center',backgroundColor: 'black',height:200}}>
-        <TouchableHighlight
-        style = {{
+      <Image  style = {{
           borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
           width: Dimensions.get('window').width * 0.3,
           height: Dimensions.get('window').width * 0.3,
@@ -86,10 +85,8 @@ function AccountScreen({navigation}) {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        underlayColor = '#red'
-        >
-        <Text style={{color:'white'}}> Cambiar foto</Text>
-        </TouchableHighlight>
+        source={require('../../assets/doggy.jpg')} 
+        />
         <FlatList
             data={listaUsuarios.filter(listaUsuarios=>{return listaUsuarios.data().Correo == correoUser})}
             keyExtractor={item => item.id}
