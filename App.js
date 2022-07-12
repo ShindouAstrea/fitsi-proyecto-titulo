@@ -21,7 +21,6 @@ import Video from './components/Video';
 import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
 import ListOfExercisesScreen from './components/Screens/ListOfExcercisesScreen';
-import UserData from './components/Auth/UserData';
 
 const Stack = createNativeStackNavigator();
 export const AuthContext = React.createContext();
@@ -163,7 +162,7 @@ function App({navigation}){
           ) : (
             // User is signed in
             <>
-              <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Perfil' ,
+              <Stack.Screen name="Account" component={AccountScreen} options={{title: 'Mi Perfil' ,
                   headerShown:true,
                   headerStyle: {
                     backgroundColor: 'black',
