@@ -109,7 +109,7 @@ const testForPlans  = () => {
   _subscribe();
   _mediumUpdate();
   useEffect(() => {
-    console.log({giroX,giroY,giroZ});
+
     _unsubscribe();
   },[]);
 }
@@ -118,14 +118,16 @@ const { giroX, giroY, giroZ } = data;
 
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center'}}> Toca el botón "Iniciar" para empezar el test y "Crear plan" para detener el escaneo"</Text>
-      <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center'}}> Minutos : Segundos</Text>
+      <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center', marginLeft:50}}> Toca el botón "Iniciar" para empezar el test.</Text>
+      <Text style={{ fontSize: 20,justifyContent: 'center' , alignItems: 'center',alignContent: 'center', marginLeft:50}}>Una vez iniciado comienza a hacer flexiones .</Text>
+      <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center', marginLeft:50}}>Pulsa "Crear plan" para detener el escaneo.</Text>
+      <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center' , marginLeft:130,marginTop:20}}>Segundos</Text>
       <Text style={styles.time}>
-        {mins}:{secs}
+      {secs}
       </Text>
       <FlatButton
         text= "Inicio"
-        onPress={startClock}
+        onPress={()=>{startClock()}}
       />
       <Separator/>
       <FlatButton 
@@ -169,6 +171,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 100,
     marginBottom:10,
+    marginTop:20,
+    marginLeft:160,
   },
   button:{
     borderRadius:10 

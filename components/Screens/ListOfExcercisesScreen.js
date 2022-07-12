@@ -38,13 +38,19 @@ const Item = ({Nombre,Repeticiones,Series ,link,Dificultad,Tiempo,id}) =>(
 
 
 
-function ListOfExercisesScreen({navigation}) {
-  
-const[ListaEjerc,setejercicio] = useState();
+function ListOfExercisesScreen({navigation,route}) {
+const {tipoPl}= route.params;
+const tipoPl1 = JSON.stringify(tipoPl);
+const final = tipoPl1.length ;
+console.log(tipoPl1);
+console.log(final);
+
+const tipoPlan = tipoPl1.slice(9,final-2)
+console.log(tipoPlan);
+const[ListaEjerc,setejercicio] = useState([]);
 
 async function cargardatos () {
   const Ejercicio1 =  await getDocs(collection(db,'Ejercicios'));
-  console.log(Ejercicio1.docs);
   setejercicio(Ejercicio1.docs);
 };
 
@@ -59,7 +65,7 @@ useEffect(() => {
     return ( 
     <View style={ styles.container}>
       <FlatList
-        data={ListaEjerc}
+        data={ListaEjerc.filter(ListaEjerc=>{return ListaEjerc.data().Tipo == tipoPlan || ListaEjerc.data().Tipo2==tipoPlan})}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />

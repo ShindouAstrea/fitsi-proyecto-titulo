@@ -1,11 +1,12 @@
 import  * as React from 'react';
-import {View, Button,Text,TextInput,StyleSheet,StatusBar,} from 'react-native';
+import {View, Label,Text,TextInput,StyleSheet,StatusBar,} from 'react-native';
 //Imports Librerias Firebase
 import {getAuth, signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
 import { AuthContext } from '../../App';
 import MyModal from '../Modal';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //----------------------------------------------------------------
 import FlatButton from '../Buttom';
 import { set } from 'firebase/database';
@@ -20,11 +21,10 @@ function LoginScreen({navigation}) {
   const [password, setPass] = React.useState(null);
   const [modalVisible, setModalVisible] = React.useState(false);
   const { signIn } = React.useContext(AuthContext);
-
+const Correo = "Correo";
   const iniciarSesion=()=>{
     signInWithEmailAndPassword(auth,mail,password)
     .then((userCredential)=>{
-      console.log("sesion iniciada");
       const user = userCredential.user ;
       signIn({mail,password})
     })
@@ -35,42 +35,42 @@ function LoginScreen({navigation}) {
 
     return (
       <View style={styles.container}>
-        <Text styles={styles.title}> Ingrese Correo registrado</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text)=>setMail(text)}
-          value={mail}
-          placeholder=" Ingrese Mail" />
-        <Text styles={styles.title}> Ingrese Contraseña</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text)=>setPass(text)}
-          value={password}
-          placeholder=" Ingrese Contraseña" 
-          secureTextEntry={true}/>
-          
-          <Separator/>
-           <FlatButton
-              text="Iniciar Sesión "
-              onPress={() => {
-                iniciarSesion();
-              }
-              }
+          <Text style={{color:'white',marginLeft:12}}>Correo</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text)=>setMail(text)}
+            value={mail}
+            placeholder=" Ingrese Mail" 
           />
-           <Separator/>
+          <Text style={{color:'white',marginLeft:12}}>Contraseña</Text>
+          <TextInput
+            icon={<FontAwesome name={'envelope'} size={20}/>}
+            iconPosition="Left"
+            style={styles.input}
+            onChangeText={(text)=>setPass(text)}
+            value={password}
+            placeholder=" Ingrese Contraseña" 
+            secureTextEntry={true}
+          />
+          <Separator/>
+          <FlatButton
+            text="Iniciar Sesión "
+            onPress={() => {iniciarSesion();}}
+          />
+          <Separator/>
           <FlatButton
               text="Olvidé Mi contraseña "
               onPress={() => setModalVisible(true)}        
           />
           <MyModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
-        </View>
+      </View>
       );
 };
 export default LoginScreen;
 const styles = StyleSheet.create({
     container:{
-      
       flex: 1,
+      backgroundColor:'black',
       justifyContent: 'center',
     },
     separator: {
@@ -78,14 +78,18 @@ const styles = StyleSheet.create({
     
       },
     input: {
-      height: 40,
+      height: 50,
       margin: 12,
-      borderWidth: 2,
+      backgroundColor: 'white',
+    
+      borderRadius: 15,
+      borderWidth: 1,
       padding: 10,
     },
     title: {
         fontStyle: 'italic',
         fontSize:30,
         fontWeight: 'bold',
-    }
+    },
+    
   });
