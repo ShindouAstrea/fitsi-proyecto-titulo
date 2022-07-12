@@ -1,5 +1,5 @@
   import * as React from 'react';
-import { View, Text,FlatList ,StyleSheet} from 'react-native';
+import { View, Text,FlatList ,StyleSheet,Dimensions,TouchableHighlight} from 'react-native';
 import FlatButton from '../Buttom';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../database/firebase';
@@ -18,27 +18,32 @@ const Separator = () => <View style={styles.separator} />;
      * @param {string} description - Valor que tiene "description" en el array entregado a FlatList.
      * @returns  {View} [Objeto en una vista , similar a un card]
      */
-
-     const Item = ({ correo,nombre,apellido,cuerpo,genero,edad,imc,peso,apodo,silueta,altura}) => (
-      <View style={styles.item}>
-        <Text style={styles.description}>Correo registrado: {correo}</Text>
-        <Text style={styles.description}>Mi nombre: {nombre}</Text>
-        <Text style={styles.description}>Mi Apellido: {apellido}</Text>
-        <Text style={styles.description}>Mi apodo: {apodo}</Text>
-        <Text style={styles.description}>Mi Edad: {edad}</Text>
-        <Text style={styles.description}>Mi altura: {altura}</Text>
-        <Text style={styles.description}>Mi imc: {imc}</Text>
-        <Text style={styles.description}>Mi silueta: {silueta}</Text>
-        <Text style={styles.description}>Mi altura: {altura}</Text>
-        <Text style={styles.description}>Mi genero: {genero}</Text>
-        <Text style={styles.description}>Mi Peso: {peso}</Text>
-      </View>
-    )
+  const Item = ({ edad,altura}) => (
+    <View style={{backgroundColor:'black',marginLeft:20}}>
+        <Text style={{fontSize:18,color:'white'}}>Edad </Text>
+        <Text style={{fontSize:18,color:'white',marginLeft:10,marginTop:5}}>{edad}</Text>
+        <Text style={{fontSize:18,color:'white',marginTop:10}}>Altura </Text>
+        <Text style={{fontSize:18,color:'white'}}>{altura*100}cms</Text>
+  </View>
+)
+const Item2=({imc,peso})=>(
+  <View style={{backgroundColor:'black'}}>
+    <Text style={{fontSize:18,color:'white'}}>Imc </Text>
+    <Text style={{fontSize:18,color:'white',marginLeft:10}}>{Math.round(imc)}</Text>
+    <Text style={{fontSize:18,color:'white',marginTop:10}}>Peso</Text>
+    <Text style={{fontSize:18,color:'white',marginLeft:10}}>{peso}Kg</Text>
+  </View>
+)
+const Item3=({apodo})=>(
+  <View style={{backgroundColor:'black',justifyContent: 'center',alignItems: 'center',height:100,borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+    <Text style={{fontSize:18,color:'white'}}>Bienvenido {apodo}</Text>
+  </View>
+)
 let correoUser ;
-
 function AccountScreen({navigation}) {
   const{signOut} = React.useContext(AuthContext) ;
   const [modalVisible, setModalVisible] = React.useState(false);
+  
   const user = auth.currentUser;
   if(user){
     correoUser=user.email;
@@ -48,32 +53,65 @@ function AccountScreen({navigation}) {
     const Usuarios =  await getDocs(collection(db,'Usuarios'));
     setUsers(Usuarios.docs);
   };
+
   React.useEffect(() => {
     cargardatos();
+
   },[])
-  /**
-   * 
-   * @param {item} Objeto - Objeto que se desea renderizar muchas veces en una lista 
-   * @returns {View} Listado de items
-   */
    const renderItem = ({ item }) => (
     
-    <Item correo={item.data().Correo} edad={item.data().Edad}nombre ={item.data().Nombre} apellido={item.data().Apellido} cuerpo={item.data().Cuerpo} genero={item.data().Genero} imc={item.data().IMC} peso={item.data().Peso} silueta={item.data().Silueta} apodo={item.data().Nickname} altura={item.data().Altura}
+    <Item edad={item.data().Edad}nombre ={item.data().Nombre} apellido={item.data().Apellido} cuerpo={item.data().Cuerpo} genero={item.data().Genero} imc={item.data().IMC} peso={item.data().Peso} silueta={item.data().Silueta} apodo={item.data().Nickname} altura={item.data().Altura}
     
     />
   )
+  const renderItem2 = ({ item }) => (
+    
+    <Item2 imc={item.data().IMC} peso={item.data().Peso} />
+  )
+  const renderItem3 = ({ item }) => (
+    
+    <Item3 apodo={item.data().Nickname} />
+  )
+
   return (
 
       <View style={styles.centeredView}>
-        <Separator/>
-      <Text style={styles.title}>Mis datos </Text>
-      <FlatList
-            //data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
+      <View style={{flexDirection: 'row',alignItems: 'center',backgroundColor: 'black',height:200}}>
+        <TouchableHighlight
+        style = {{
+          borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+          width: Dimensions.get('window').width * 0.3,
+          height: Dimensions.get('window').width * 0.3,
+          backgroundColor:'grey',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        underlayColor = '#red'
+        >
+        <Text style={{color:'white'}}> Cambiar foto</Text>
+        </TouchableHighlight>
+        <FlatList
             data={listaUsuarios.filter(listaUsuarios=>{return listaUsuarios.data().Correo == correoUser})}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             extraData={navigation}
           />
+          <FlatList
+            data={listaUsuarios.filter(listaUsuarios=>{return listaUsuarios.data().Correo == correoUser})}
+            keyExtractor={item => item.id}
+            renderItem={renderItem2}
+            extraData={navigation}
+          />
+      </View>
+      <View style={{flexDirection:'row',backgroundColor:'black',borderBottomLeftRadius:30,borderBottomRightRadius:30}}>
+          <FlatList
+            data={listaUsuarios.filter(listaUsuarios=>{return listaUsuarios.data().Correo == correoUser})}
+            keyExtractor={item => item.id}
+            renderItem={renderItem3}
+            extraData={navigation}
+          />
+         </View>
+      
       <Separator/>
         <FlatButton 
             text="Modificar datos"
@@ -99,8 +137,7 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    backgroundColor:'white',
   },
   button:{
     borderRadius:10 
