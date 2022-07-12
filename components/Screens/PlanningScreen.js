@@ -6,8 +6,6 @@ import FlatButton from '../Buttom';
 import {firebaseConfig} from '../../database/firebase';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, Firestore,setDoc, doc } from 'firebase/firestore';
-
-import { ImagenFondo } from '../ImagenFondo';
 //----------------------------------------------------------------
 
 const app = initializeApp(firebaseConfig);
@@ -15,12 +13,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const Separator = () => < View style = { styleScreen.separator } />;
-function ButtonToNavigate () {
+function ButtonToNavigate ({tipo}) {
   const navigation = useNavigation();
   return(
     <FlatButton
     text= "Ver Ejercicios"
-    onPress={() => {navigation.navigate('ListExercises')}}
+    onPress={() => {navigation.navigate('ListExercises',{tipoPl:{tipo}})}}
   />
   );
 }
@@ -33,13 +31,13 @@ function ButtonToNavigate () {
      * @returns  {View} [Objeto en una vista , similar a un card]
      */
 
-const Item = ({ title,level,description,time}) => (
+const Item = ({ title,level,description,time,tipo}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.description}>Duracion semanal del plan: {time}</Text>
     <Text style={styles.description}>Dificultad del plan: {level}</Text>
     <Text style={styles.description}>{description}</Text>
-    <ButtonToNavigate/>
+    <ButtonToNavigate tipo={tipo}/>
   </View>
 )
 
@@ -53,11 +51,18 @@ const Item = ({ title,level,description,time}) => (
  */
 function PlanningScreen({route }) {
   const {mins,secs,sentidoDelGiro}= route.params;
-  const minutos = mins;
-  const giroIzquierda= JSON.stringify(sentidoDelGiro);
-  console.log(giroIzquierda);
-
-  const [listaPlanes,setPlanes] = useState();
+  const minutos = JSON.stringify(mins);
+  const segundos = JSON.stringify(secs);
+  const final = segundos.length;
+  const segundosCont = Number(segundos.slice(8,final-1)) 
+  let Nivel = "Alta" ;
+  if(segundosCont <5 && segundosCont > 1){
+      Nivel = "Baja"
+  }
+  else if(segundosCont < 10 && segundosCont >5){
+      Nivel="Normal"
+  }
+  const [listaPlanes,setPlanes] = React.useState([]);
 
   async function cargardatos () {
     const Planes1 =  await getDocs(collection(db,'Planes'));
@@ -74,19 +79,17 @@ function PlanningScreen({route }) {
    */
   const renderItem = ({ item }) => (
     
-    <Item title={item.data().titulo} level ={item.data().dificultad} time={item.data().tiempo} description={item.data().descripcion} 
+    <Item tipo={item.data().tipo}title={item.data().titulo} level ={item.data().dificultad} time={item.data().tiempo} description={item.data().descripcion} 
     
     />
   )
-  const navigation = useNavigation();
     return (
         <View style ={styles.container}>
           <FlatList
             //data={Plans.filter(Plans=>{return Plans.dificultad == Nivel ;})}
-            data={listaPlanes}
+            data={listaPlanes.filter(listaPlanes=>{return listaPlanes.data().dificultad == Nivel})}
             keyExtractor={item => item.id}
             renderItem={renderItem}
-            extraData={navigation}
           />
           <Separator/>
           
