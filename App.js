@@ -22,6 +22,7 @@ import Ejemplo from './components/Ejemplo';
 import AlgorithmIA from './components/Algorithm/Algorithm';
 import ListOfExercisesScreen from './components/Screens/ListOfExcercisesScreen';
 
+
 const Stack = createNativeStackNavigator();
 export const AuthContext = React.createContext();
 function App({navigation}){
@@ -61,7 +62,7 @@ function App({navigation}){
       let userToken;
 
       try {
-        //userToken = await SecureStore.getItemAsync('userToken');
+        userToken = await SecureStore.getItemAsync('userToken');
       } catch (e) {
         // Restoring token failed
       }
@@ -83,7 +84,7 @@ function App({navigation}){
         // We will also need to handle errors if sign in failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
-
+  
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
       signOut: () => dispatch({ type: 'SIGN_OUT' }),
@@ -92,7 +93,7 @@ function App({navigation}){
         // We will also need to handle errors if sign up failed
         // After getting token, we need to persist the token using `SecureStore`
         // In the example, we'll use a dummy token
-
+  
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
       },
     }),

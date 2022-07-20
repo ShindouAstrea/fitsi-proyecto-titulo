@@ -105,17 +105,15 @@ const _unsubscribe = () => {
  * @return {boolean} Retorna el valor de isLeft para detectar la posicion del celular 
  * 
 */
-const testForPlans  = () => {
+useEffect(() => {
   _subscribe();
   _mediumUpdate();
-  useEffect(() => {
-
-    _unsubscribe();
-  },[]);
-}
+  console.log(parseInt(JSON.stringify(giroZ)));
+    if ( (parseInt(JSON.stringify(giroZ))> 0))
+    setPos(true)
+  return () => _unsubscribe();
+}, []);
 const { giroX, giroY, giroZ } = data;
-
-
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
       <Text style={{ fontSize: 20 ,justifyContent: 'center' , alignItems: 'center',alignContent: 'center', marginLeft:50}}> Toca el botón "Iniciar" para empezar el test.</Text>

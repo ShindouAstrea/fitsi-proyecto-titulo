@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useEffect,useState} from 'react';
-import { View, Text, Image, StyleSheet,StatusBar,FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet,StatusBar,FlatList ,TouchableOpacity} from 'react-native';
 import FlatButton from '../Buttom';
 //Importaciones para utilizar la base datos.
 import {firebaseConfig} from '../../database/firebase';
@@ -16,10 +16,10 @@ const Separator = () => < View style = { styleScreen.separator } />;
 function ButtonToNavigate ({tipo}) {
   const navigation = useNavigation();
   return(
-    <FlatButton
-    text= "Ver Ejercicios"
-    onPress={() => {navigation.navigate('ListExercises',{tipoPl:{tipo}})}}
-  />
+    <TouchableOpacity style={{backgroundColor:'black',height:45,borderBottomLeftRadius:15,borderBottomRightRadius:15}}
+      onPress={() => {navigation.navigate('ListExercises',{tipoPl:{tipo}})}}>
+      <Text style={{color:'white', fontSize:18,marginVertical:10,textAlign:'center',borderTopLeftRadius:15,borderTopRightRadius:15}}>Ver Ejercicios</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -34,9 +34,11 @@ function ButtonToNavigate ({tipo}) {
 const Item = ({ title,level,description,time,tipo}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
-    <Text style={styles.description}>Duracion semanal del plan: {time}</Text>
-    <Text style={styles.description}>Dificultad del plan: {level}</Text>
+    <Text style={{backgroundColor:'black',borderRadius:15,fontSize:20,color:'white',paddingLeft:20,marginRight:150,marginBottom:10,marginLeft:5}}>Dificultad {level}</Text>
     <Text style={styles.description}>{description}</Text>
+    <View style={{flexDirection:'row',justifyContent: 'space-between',marginBottom:20,marginTop:20}}>
+      <Text style={{color:'white',fontSize:18 ,marginHorizontal:10,paddingHorizontal:10,borderRadius:15,backgroundColor:'black'}}>Duracion semanal: {time}</Text>
+    </View>
     <ButtonToNavigate tipo={tipo}/>
   </View>
 )
@@ -51,6 +53,7 @@ const Item = ({ title,level,description,time,tipo}) => (
  */
 function PlanningScreen({route }) {
   const {mins,secs,sentidoDelGiro}= route.params;
+  console.log(sentidoDelGiro);
   const minutos = JSON.stringify(mins);
   const segundos = JSON.stringify(secs);
   const final = segundos.length;
@@ -127,13 +130,13 @@ const styleScreen = StyleSheet.create({
 const styles = StyleSheet.create({
     container:{
       flex: 1,
-      marginTop: StatusBar.currentHeight || 0,
+      backgroundColor:'#b3b3b3',
     },
     title:{
-      fontStyle: 'italic',
+      fontStyle: 'normal',
       fontSize:30,
       fontWeight: 'bold',
-  
+      marginLeft:10
     },
     imagePlan:{
       width: 200,
@@ -141,12 +144,14 @@ const styles = StyleSheet.create({
     },
     description:{
       marginVertical: 20,
-      fontSize:20
+      fontSize:20,
+      justifyContent:'center',
+      marginLeft:10
     },
     item: {
       borderColor:'#000000',
-      borderWidth:1,
-      padding: 20,
+      borderRadius:15,
+      backgroundColor:'white',
       marginVertical: 8,
       marginHorizontal: 16,
     },
